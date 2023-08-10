@@ -135,7 +135,7 @@ function CreateAccountScreen({ navigation }) {
             <FullButton handlePress={handleNext} color={Theme.secondaryColor} label={"Next"} />
             <View style={Theme.align}>
               <Typo light>Already have an account? </Typo>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={()=>navigation.navigate("LoginScreen")}>
                 <Typo style={{ color: Theme.secondaryColor }}>Sign in</Typo>
               </TouchableOpacity>
             </View>
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     height: 55,
-    width: 190,
+    width: 155,
     resizeMode: "contain",
   },
   gradient: {

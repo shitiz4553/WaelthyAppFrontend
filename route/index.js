@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import Theme from '../src/Theme';
 import CreateAccountScreen from '../screens/CreateAccountScreen';
+import LoginScreen from '../screens/LoginScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -19,6 +20,7 @@ export default function MyStack() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerMode:false}}>
         <Stack.Screen name="CreateAccountScreen" component={CreateAccountScreen} />
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

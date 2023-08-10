@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     },
     text:{
         fontSize:16,
-        fontFamily:Theme.MulishBold,
+        fontFamily:Theme.OutfitMedium,
         color:'#FFF'
     }
 });
