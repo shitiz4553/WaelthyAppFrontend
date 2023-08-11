@@ -15,6 +15,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import useStore from '../store';
 import SidebarScreen from '../screens/SidebarScreen';
 import NotificationScreen from '../screens/NotificationScreen';
+import DetailsScreen from '../screens/DetailsScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -32,6 +33,7 @@ export default function MyStack() {
         <Stack.Screen name="MainRoute" component={MainRoute} />
         <Stack.Screen name="SidebarScreen" component={SidebarScreen} />
         <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
+        <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

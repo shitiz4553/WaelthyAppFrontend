@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { 
     View,
     Image,
     StyleSheet,
     ScrollView,
-    TouchableOpacity
+    TouchableOpacity,
+    RefreshControl,
 } from "react-native";
 import CustomHeader from "../components/Headers/CustomHeader";
 import DurationToggle from "../components/HomeScreen/DurationToggle";
@@ -19,13 +20,31 @@ import GoalCard from "../components/HomeScreen/GoalCard";
 import CustomView from "../components/Utils/CustomView";
 
 function HomeScreen({navigation}){
+  const [refreshing, setRefreshing] = useState(false);
 
+  function handleRefresh() {
+    // Simulate a data fetch or any other asynchronous task
+    // You can replace this with your actual data fetching logic
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000); // Simulating a 2-second delay
+  }
 
     return (
       <CustomView>
         <CustomHeader edit={false} logoMode={true} />
         <View style={styles.body}>
-          <ScrollView contentContainerStyle={{ alignItems: "center" }}>
+          <ScrollView
+           refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              colors={["grey"]} // Colors for the loading spinner (Android only)
+              tintColor={"grey"} // Color for the loading spinner (iOS only)
+            />
+          }
+          contentContainerStyle={{ alignItems: "center" }}>
             <DurationToggle />
             <Space space={15} />
 
@@ -42,12 +61,14 @@ function HomeScreen({navigation}){
               <Typo light grey l>
                 Budgets
               </Typo>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={()=>navigation.navigate("DetailsScreen",{
+                item:"budget"
+              })}>
                 <Image source={assets.expand} style={styles.expand} />
               </TouchableOpacity>
             </View>
 
-            {budgets.map((item,index) => {
+            {budgets.slice(0, 2).map((item,index) => {
               return <BudgetCard item={item} key={index} />;
             })}
 
@@ -58,12 +79,14 @@ function HomeScreen({navigation}){
               <Typo light grey l>
                 Goals
               </Typo>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={()=>navigation.navigate("DetailsScreen",{
+                item:"goals"
+              })}>
                 <Image source={assets.expand} style={styles.expand} />
               </TouchableOpacity>
             </View>
 
-            {goals.map((item,index) => {
+            {goals.slice(0, 2).map((item,index) => {
               return <GoalCard item={item} key={index} />;
             })}
 
@@ -91,7 +114,6 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
-    paddingTop: 20,
   },
   aligner: {
     width: "90%",

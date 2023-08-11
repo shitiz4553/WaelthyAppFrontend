@@ -5,4 +5,5 @@ export default {
     food:require("./images/food.png"),
     stat:require("./images/stat.png"),
     grid:require("./images/grid.png"),
+    plus:require("./images/plus.png"),
 }

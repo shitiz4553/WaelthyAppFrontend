@@ -100,3 +100,32 @@ export const academyData = [
     articleMessage:"Discover how incorporating visual arts, music, theater, and dance can unlock creativity, enhance critical thinking, and foster a well-rounded educational experience. Join us on "
   },
 ]
+
+
+export const spendingsData = [
+  {
+    category: "Transport",
+    icon: "train",
+    amount: 765.0,
+  },
+  {
+    category: "Gastronomy",
+    icon: "fast-food",
+    amount: 555.0,
+  },
+  {
+    category: "Grocery",
+    icon: "cart",
+    amount: 233.0,
+  },
+  {
+    category: "Car",
+    icon: "car",
+    amount: 533.0,
+  },
+  {
+    category: "Health & Beauty",
+    icon: "heart",
+    amount: 225.0,
+  },
+];
