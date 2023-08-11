@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   needs: {
-    flex:1.7,
+    flex:1.5,
     backgroundColor: "#BED3E6",
   },
   wants: {

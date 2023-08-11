@@ -37,6 +37,7 @@ export const budgets = [
     budgetSpent:500,
   },
 ]
+
 export const goals = [
   {
     goalLabel:"New Car",
@@ -71,6 +72,8 @@ export const notifications = [
     time:"Yesterday",
   },
 ]
+
+
 export const academyData = [
   {
     title:"You went over budget today in Gastronomy",
