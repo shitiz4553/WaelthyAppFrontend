@@ -15,7 +15,7 @@ function FullButtonStroke({color,label,handlePress,image}){
         style={[styles.container, { borderWidth: 1, borderColor: color }]}
       >
         {image ? <Image source={image} style={styles.img} /> : null}
-        <Text style={[styles.text]}>{label}</Text>
+        <Text style={[styles.text,{color:color}]}>{label}</Text>
       </TouchableOpacity>
     );}
 export default FullButtonStroke;

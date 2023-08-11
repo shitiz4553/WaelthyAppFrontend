@@ -107,25 +107,155 @@ export const spendingsData = [
     category: "Transport",
     icon: "train",
     amount: 765.0,
+    spendings:[
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Thursday,5 May"
+      },
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Thursday,5 May"
+      },
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Friday,6 May"
+      },
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Thursday,6 May"
+      },
+    ]
   },
   {
     category: "Gastronomy",
     icon: "fast-food",
     amount: 555.0,
+    spendings:[
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Thursday,5 May"
+      },
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Thursday,5 May"
+      },
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Friday,6 May"
+      },
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Thursday,6 May"
+      },
+    ]
   },
   {
     category: "Grocery",
     icon: "cart",
     amount: 233.0,
+    spendings:[
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Thursday,5 May"
+      },
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Thursday,5 May"
+      },
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Friday,6 May"
+      },
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Thursday,6 May"
+      },
+    ]
   },
   {
     category: "Car",
     icon: "car",
     amount: 533.0,
+    spendings:[
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Thursday,5 May"
+      },
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Thursday,5 May"
+      },
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Friday,6 May"
+      },
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Thursday,6 May"
+      },
+    ]
   },
   {
     category: "Health & Beauty",
     icon: "heart",
     amount: 225.0,
+    spendings:[
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Thursday,5 May"
+      },
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Thursday,5 May"
+      },
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Friday,6 May"
+      },
+      {
+        spendingTitle:"Biner Zermatt",
+        spendingSubtitle:"Zermatt",
+        spendingAmount:29.50,
+        spendingDate:"Thursday,6 May"
+      },
+    ]
   },
 ];

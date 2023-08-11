@@ -6,4 +6,5 @@ export default {
     stat:require("./images/stat.png"),
     grid:require("./images/grid.png"),
     plus:require("./images/plus.png"),
+    edit:require("./images/edit.png"),
 }

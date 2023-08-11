@@ -16,6 +16,7 @@ import useStore from '../store';
 import SidebarScreen from '../screens/SidebarScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import DetailsScreen from '../screens/DetailsScreen';
+import CTDetailsScreen from '../screens/CTDetailsScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -34,6 +35,7 @@ export default function MyStack() {
         <Stack.Screen name="SidebarScreen" component={SidebarScreen} />
         <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
         <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
+        <Stack.Screen name="CTDetailsScreen" component={CTDetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

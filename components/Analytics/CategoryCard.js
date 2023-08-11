@@ -3,7 +3,6 @@ import {
     View,
     Image,
     StyleSheet,
-    TouchableOpacity
 } from "react-native";
 
 import useStore from "../../store/index";
@@ -15,26 +14,19 @@ import { useNavigation } from "@react-navigation/native";
 
 
 
-function AnalyticCard({
+function CategoryCard({
   icon,
   label,
   amount,
-  totalSpentAmount,
   color,
-  item
+  item,
+  sublabel
 }) {
   const isDarkMode = useStore((state) => state.isDarkMode);
-  const percentage = (amount / totalSpentAmount) * 100;
-  const progressWidth = percentage > 100 ? "100%" : `${percentage}%`;
   const navigation = useNavigation()
 
   return (
-    <TouchableOpacity
-    onPress={()=>navigation.navigate("CTDetailsScreen",{
-      item:item ,//passing that item's details
-      color:color,
-      icon:icon,
-    })}
+    <View
       style={[
         styles.container,
         {
@@ -42,21 +34,12 @@ function AnalyticCard({
         },
       ]}
     >
-      <View
-        style={[
-          styles.progressWrapper,
-          {
-            width: progressWidth,
-            backgroundColor: color,
-          },
-        ]}
-      ></View>
-      <View style={{ flexDirection: "row", alignItems: "center", padding: 6 }}>
+      <View style={{ flexDirection: "row", alignItems:'center',padding: 12 }}>
         <View
           style={[
             styles.circle,
             {
-              backgroundColor: isDarkMode ? "#202020" : "#FFF",
+              backgroundColor: color,
             },
           ]}
         >
@@ -66,21 +49,19 @@ function AnalyticCard({
             color={isDarkMode ? "white" : "black"}
           />
         </View>
-        <Typo s>{label}</Typo>
+        <View>
+        <Typo>{label}</Typo>
+        <Typo s grey>{sublabel}</Typo>
+        </View>
       </View>
 
       <View style={styles.amountWrapper}>
         <Typo s>CHF {amount}</Typo>
-        <Ionicons
-          name={"arrow-forward-outline"}
-          size={18}
-          color={isDarkMode ? "white" : "black"}
-        />
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
-export default AnalyticCard;
+export default CategoryCard;
 
 const styles = StyleSheet.create({
   container: {
@@ -93,19 +74,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   circle: {
-    height: 35,
-    width: 35,
+    height: 45,
+    width: 45,
     borderRadius: 100,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 8,
-  },
-  progressWrapper: {
-    flexDirection: "row",
-    alignItems: "center",
-    position:'absolute',
-    height:'100%',
-
   },
   amountWrapper:{
     position:'absolute',
