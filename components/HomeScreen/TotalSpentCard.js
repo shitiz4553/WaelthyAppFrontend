@@ -22,7 +22,7 @@ export default TotalSpentCard;
 const styles = StyleSheet.create({
   container: {
     width: "90%",
-    paddingVertical: 10,
+    paddingVertical: 15,
     borderRadius: 10,
     backgroundColor: Theme.primaryColor,
     paddingHorizontal: 15,
@@ -32,6 +32,6 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     alignItems:'center',
     justifyContent:'space-between',
-    paddingVertical:15
+    paddingTop:15
   }
 });

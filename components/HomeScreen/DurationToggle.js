@@ -3,11 +3,12 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Feather } from '@expo/vector-icons';
 import Theme from "../../src/Theme";
 import Typo from "../Utils/Typo";
+import useStore from "../../store";
 
 function DurationToggle({ navigation }) {
     const [selectedDuration, setSelectedDuration] = useState("week");
     const [activeIndex, setActiveIndex] = useState(0);
-    
+    const isDarkMode = useStore((state) => state.isDarkMode)
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const weekTimings = ["Week 1", "Week 2", "Week 3", "Week 4"];
 
@@ -32,7 +33,9 @@ function DurationToggle({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.tabContainer}>
+            <View style={[styles.tabContainer,{
+                backgroundColor:isDarkMode ? "#202020" :"#ebebeb"
+            }]}>
                 <TouchableOpacity
                     onPress={() => handleDurationChange("week")}
                     style={[
@@ -92,7 +95,6 @@ const styles = StyleSheet.create({
     },
     tabContainer: {
         flexDirection: "row",
-        backgroundColor: "#EBEBEB",
         borderRadius: 5,
         overflow: "hidden",
         width:'55%'

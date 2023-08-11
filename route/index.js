@@ -12,6 +12,9 @@ import AnalyticsScreen from '../screens/AnalyticsScreen';
 import AcademyScreen from '../screens/AcademyScreen';
 import AccountsScreen from '../screens/AccountsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import useStore from '../store';
+import SidebarScreen from '../screens/SidebarScreen';
+import NotificationScreen from '../screens/NotificationScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -27,6 +30,8 @@ export default function MyStack() {
         <Stack.Screen name="CreateAccountScreen" component={CreateAccountScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="MainRoute" component={MainRoute} />
+        <Stack.Screen name="SidebarScreen" component={SidebarScreen} />
+        <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -34,6 +39,9 @@ export default function MyStack() {
 
 
 function MainRoute() {
+
+  const isDarkMode = useStore((state) => state.isDarkMode)
+
     return (
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -67,7 +75,7 @@ function MainRoute() {
 
             return <Feather name={iconSource} size={24} color={iconColor} />;
           },
-          tabBarStyle: [styles.tabbarstyle],
+          tabBarStyle: [styles.tabbarstyle,{backgroundColor:isDarkMode ? "black" : "white"}],
           tabBarActiveTintColor: Theme.primaryColor,
           tabBarInactiveTintColor: "#9FA5AA",
           headerShown: false,
@@ -85,9 +93,7 @@ function MainRoute() {
 const styles= StyleSheet.create({
     tabbarstyle:{
     height: Platform.OS === 'ios' ? 95 : 75, // set the height based on the platform
-    borderTopWidth: 0.5, // add a border to the top of the tab bar
-    borderTopColor: '#E0E0E0',
-    backgroundColor: '#FFFFFF', // set a background color for the tab bar
+    borderTopWidth: 0, // add a border to the top of the tab bar
     paddingVertical: Platform.OS === 'ios' ? 20 : 0 // add extra padding for iOS to account for the notch
     },
 })

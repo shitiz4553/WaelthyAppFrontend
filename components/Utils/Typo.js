@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 import Theme from '../../src/Theme';
+import useStore from '../../store';
 
 
 const Typo = ({
@@ -15,6 +16,7 @@ const Typo = ({
   s,
   xs,
   white,
+  black,
   fontFamily,
   style,
   ...props
@@ -29,9 +31,12 @@ const Typo = ({
     return { fontSize: 16 }; // Default font size
   };
 
+
+  const isDarkMode = useStore((state) => state.isDarkMode)
+
   const fontStyles = {
     fontFamily: light ? Theme.OutfitLight : Theme.OutfitMedium,
-    color: grey ? Theme.lightTextcolor : white ? "white" : 'black',
+    color: grey ? Theme.lightTextcolor : white ? "white" : isDarkMode && !white && !grey && !black ? 'white' : "black",
   };
 
   // Merge the font size styles, font family, and provided styles

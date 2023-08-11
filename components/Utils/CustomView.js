@@ -1,29 +1,23 @@
 import React from 'react';
-import { KeyboardAvoidingView, Keyboard, StyleSheet, Platform, TouchableWithoutFeedback, ScrollView } from "react-native";
+import {  StyleSheet,View } from "react-native";
 import Theme from '../../src/Theme';
+import useStore from '../../store';
 
-const CustomView = ({ children, backgroundColor }) => {
-  const keyboardAvoidingBehavior = Platform.OS === 'ios' ? "padding" : null;
-
-
+const CustomView = ({ children }) => {
+  const isDarkMode = useStore((state) => state.isDarkMode)
   return (
 
-      <KeyboardAvoidingView
-        style={[styles.container, { backgroundColor: 'white' }]}
-        behavior={keyboardAvoidingBehavior}
-        enabled
+      <View
+        style={[styles.container, { backgroundColor:isDarkMode ? "black" : null }]}
       >
          {children}
-      </KeyboardAvoidingView>
+      </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  scrollViewContainer: {
-    flexGrow: 1,
   },
 });
 

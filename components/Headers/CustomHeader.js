@@ -22,16 +22,16 @@ function CustomHeader({logoMode,label,edit}){
             {logoMode ? (
               <Image source={assets.logo} style={styles.logo} />
             ) : (
-              <View style={[Theme.align,{gap:10,flex:1,maxWidth:'25%'}]}>
+              <View style={[Theme.align,{gap:10,flex:1,maxWidth:'55%'}]}>
                 <IconHolder handlePress={()=>navigation.goBack()} icon={"arrow-left"} />
-                <Typo l>{label}</Typo>
+                <Typo l>{label}</Typo> 
               </View>
             )}
 
             <View style={[Theme.align, { gap: 10 }]}>
               {edit ?<IconHolder icon={"edit"} /> : null}
-              <IconHolder icon={"bell"} />
-              <IconHolder icon={"grid"} />
+              <IconHolder handlePress={()=>navigation.navigate("NotificationScreen")} icon={"bell"} /> 
+              <IconHolder handlePress={()=>navigation.navigate("SidebarScreen")} icon={"grid"} />
             </View>
           </View>
         </SafeAreaView>

@@ -18,14 +18,14 @@ function IconHolder({icon,handlePress}){
     <TouchableOpacity onPress={handlePress} style={[styles.container,{
         backgroundColor:isDarkMode ? Theme.containerGreyDarkMode : Theme.containerGrey
     }]}>
-      <Feather name={icon} size={20} color={isDarkMode ? "white" :"black"} />
+      <Feather name={icon} size={17} color={isDarkMode ? "white" :"black"} />
     </TouchableOpacity>
     )}
 export default IconHolder;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 12,
+    padding: 10,
     borderRadius: 100,
   }
 });
