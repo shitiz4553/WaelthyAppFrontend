@@ -19,10 +19,11 @@ import Typo from "../components/Utils/Typo";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import {windowWidth} from '../src/ScreenSize'
+import useStore from "../store";
 
 function CreateAccountScreen({ navigation }) {
   const [activeSlide, setActiveSlide] = useState(0);
-
+  const isDarkMode = useStore((state) => state.isDarkMode)
   const flatListRef = useRef(null);
 
   const slides = [
@@ -70,18 +71,23 @@ function CreateAccountScreen({ navigation }) {
 
 
   const handleNext = () => {
-    if (flatListRef.current) {
-      const nextSlide = activeSlide + 1;
-      if (nextSlide < slides.length) {
-        flatListRef.current.scrollToIndex({ index: nextSlide, animated: true });
-        setActiveSlide(nextSlide);
+    if(activeSlide === 2){
+      navigation.navigate("MainRoute") // handle login here.
+    }
+    else {
+      if (flatListRef.current) {
+        const nextSlide = activeSlide + 1;
+        if (nextSlide < slides.length) {
+          flatListRef.current.scrollToIndex({ index: nextSlide, animated: true });
+          setActiveSlide(nextSlide);
+        }
       }
     }
+
   };
 
 
   return (
-
     <View style={styles.container}>
       <View style={styles.header}>
         <LinearGradient
@@ -93,68 +99,72 @@ function CreateAccountScreen({ navigation }) {
       </View>
 
       <View style={styles.body}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : null}
+          style={{ flex: 1 }}
+        >
+          <View style={styles.shadow} />
+          <View
+            style={[
+              styles.curveView,
+              {
+                backgroundColor: isDarkMode ? "black" : "white",
+              },
+            ]}
+          >
+            <View style={styles.headerWrapper}>
+              <Typo xxl>Create Account</Typo>
+              <Space space={10} />
+              <Typo grey>Join our community</Typo>
+            </View>
 
-      <KeyboardAvoidingView behavior={Platform.OS ==='ios' ? 'padding' : null} style={{flex:1,}}>
+            <View style={styles.sliderWrapper}>
+              <FlatList
+                ref={flatListRef}
+                data={slides}
+                renderItem={renderItem}
+                horizontal
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={(_, index) => index.toString()}
+                onMomentumScrollEnd={(event) => {
+                  const slideWidth = event.nativeEvent.layoutMeasurement.width;
+                  const offset = event.nativeEvent.contentOffset.x;
+                  const currentSlide = Math.floor(offset / slideWidth);
+                  setActiveSlide(currentSlide);
+                }}
+              />
+              <View style={styles.dotContainer}>
+                {slides.map((_, index) => (
+                  <View key={index} style={styles.dotWrapper}>
+                    {renderDot({ item: _, index })}
+                  </View>
+                ))}
+              </View>
+            </View>
 
-
-        <View style={styles.shadow} />
-        <View style={styles.curveView}>
-          <View style={styles.headerWrapper}>
-            <Typo xxl>Create Account</Typo>
-            <Space space={10} />
-            <Typo grey>Join our community</Typo>
-          </View>
-
-          <View style={styles.sliderWrapper}>
-
-          <FlatList 
-            ref={flatListRef}
-            data={slides}
-            renderItem={renderItem}
-            horizontal
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(_, index) => index.toString()}
-            onMomentumScrollEnd={(event) => {
-              const slideWidth = event.nativeEvent.layoutMeasurement.width;
-              const offset = event.nativeEvent.contentOffset.x;
-              const currentSlide = Math.floor(offset / slideWidth);
-              setActiveSlide(currentSlide);
-            }}
-          />
-            <View style={styles.dotContainer}>
-              {slides.map((_, index) => (
-                <View key={index} style={styles.dotWrapper}>
-                  {renderDot({ item: _, index })}
-                </View>
-              ))}
+            <View style={styles.buttonWrapper}>
+              <FullButton
+                handlePress={handleNext}
+                color={Theme.secondaryColor}
+                label={activeSlide === 2 ? "Sign up" : "Next"}
+              />
+              <View style={Theme.align}>
+                <Typo light>Already have an account? </Typo>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("LoginScreen")}
+                >
+                  <Typo style={{ color: Theme.secondaryColor }}>Sign in</Typo>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-
-          <View style={styles.buttonWrapper}>
-            <FullButton handlePress={handleNext} color={Theme.secondaryColor} label={"Next"} />
-            <View style={Theme.align}>
-              <Typo light>Already have an account? </Typo>
-              <TouchableOpacity onPress={()=>navigation.navigate("LoginScreen")}>
-                <Typo style={{ color: Theme.secondaryColor }}>Sign in</Typo>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-
         </KeyboardAvoidingView>
-
-
-
-        
       </View>
     </View>
   );
 }
 export default CreateAccountScreen;
-
-
-
 
 
 
@@ -269,7 +279,6 @@ const styles = StyleSheet.create({
   curveView: {
     flex: 1,
     borderTopLeftRadius: 35,
-    backgroundColor: Theme.backgroundColor,
     borderTopRightRadius: 35,
     width: "100%",
   },

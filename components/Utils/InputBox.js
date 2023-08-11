@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import Theme from "../../src/Theme";
 import { Ionicons,Feather } from '@expo/vector-icons';
+import useStore from "../../store/index"
 
 function InputBox({
   secureTextEntry,
@@ -22,11 +23,11 @@ function InputBox({
   mobNum,
   textMode,
   handlePress,
-  passwordMode
+  passwordMode,
 }) {
 
 const [eye,setEye] = useState(true)
-
+const isDarkMode = useStore((state) => state.isDarkMode)
   return (
       <View
         style={[
@@ -35,6 +36,7 @@ const [eye,setEye] = useState(true)
           {
             height: multiline ? 80 : 50,
             alignItems: multiline ? "flex-start" : "center",
+            borderColor:isDarkMode ? "#7c7c7c" : "#EEECEC"
           },
         ]}
       >
@@ -57,7 +59,7 @@ const [eye,setEye] = useState(true)
           maxLength={maxLength}
           keyboardType={keyboardType}
           placeholderTextColor={textMode ? "black" : Theme.lightTextcolor}
-          style={[styles.input]}
+          style={[styles.input,{color:isDarkMode ? "white":"black"}]}
           placeholder={placeholder}
           autoCapitalize="none"
         />

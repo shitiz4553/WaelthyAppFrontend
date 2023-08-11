@@ -11,6 +11,7 @@ import { Feather } from '@expo/vector-icons';
 import Theme from "../src/Theme";
 import useStore from "../store";
 import CustomView from "../components/Utils/CustomView";
+import IconHolder from "../components/Utils/IconHolder";
 
 const menu =[
     {
@@ -72,6 +73,9 @@ function SidebarScreen({navigation}){
        <View style={styles.header}>
         <Image source={{uri:"https://randomuser.me/api/portraits/men/61.jpg"}} style={styles.circle} />
         <Typo l>Fedrick Batman</Typo>
+        <View style={styles.back}>
+         <IconHolder handlePress={()=>navigation.goBack()} icon={'arrow-left'} />
+        </View>
        </View>
        <View style={styles.body}>
         {menu.map((item,index) => {
@@ -129,7 +133,7 @@ const styles = StyleSheet.create({
     paddingTop: 35,
     borderBottomColor: "#e5e5e5",
     borderBottomWidth: 1,
-    marginHorizontal: 55,
+    marginHorizontal: 25,
   },
   body: {
     flex: 3,
@@ -150,26 +154,30 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderRadius: 5,
     overflow: "hidden",
-    width:'55%',
-    marginTop:5
-},
-tab: {
+    width: "55%",
+    marginTop: 5,
+  },
+  tab: {
     alignItems: "center",
     paddingVertical: 10,
     margin: 3,
     flex: 1,
-    borderRadius:5
-},
-activeTab: {
+    borderRadius: 5,
+  },
+  activeTab: {
     backgroundColor: Theme.secondaryColor,
-    borderRadius:5
-},
-tabText: {
+    borderRadius: 5,
+  },
+  tabText: {
     fontSize: 16,
-    fontFamily:Theme.OutfitMedium,
-    color:'#C7C2C2'
-},
-activeTabText: {
+    fontFamily: Theme.OutfitMedium,
+    color: "#C7C2C2",
+  },
+  activeTabText: {
     color: "#fff",
-},
+  },
+  back: {
+    position: "absolute",
+    left: 0,
+  },
 });

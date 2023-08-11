@@ -46,7 +46,7 @@ function CategoryCard({
           <Ionicons
             name={icon}
             size={19}
-            color={isDarkMode ? "white" : "black"}
+            color={"black"}
           />
         </View>
         <View>
@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   circle: {
-    height: 45,
-    width: 45,
+    height: 40,
+    width: 40,
     borderRadius: 100,
     justifyContent: "center",
     alignItems: "center",

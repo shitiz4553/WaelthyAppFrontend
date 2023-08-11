@@ -150,6 +150,10 @@ function ProfileScreen({navigation}){
             </View>
           </View>
         </KeyboardAvoidingView>
+
+        <TouchableOpacity style={styles.delete}>
+          <Typo light style={{color:'red'}}>Delete Account</Typo>
+        </TouchableOpacity>
       </CustomView>
     );}
 export default ProfileScreen;
@@ -200,8 +204,12 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 15,
   },
-  boxContainer:{
-    width:'100%',
-    height:50,
+  boxContainer: {
+    width: "100%",
+    height: 50,
+  },
+  delete:{
+    alignItems:'center',
+    paddingBottom:10
   }
 });

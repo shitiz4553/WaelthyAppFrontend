@@ -16,15 +16,25 @@ import FullButtonStroke from "../components/Buttons/FullButtonStroke";
 import Typo from "../components/Utils/Typo";
 import { LinearGradient } from "expo-linear-gradient";
 import {windowWidth} from '../src/ScreenSize'
+import useStore from "../store";
 
 function LoginScreen({ navigation }) {
-
+  const isDarkMode = useStore((state) => state.isDarkMode)
   return (
-
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: isDarkMode ? "black" : "white",
+        },
+      ]}
+    >
       <View style={styles.header}>
         <LinearGradient
-          colors={["white", Theme.primaryColorLight]}
+          colors={[
+            isDarkMode ? "black" : "white",
+            isDarkMode ? "#1D5232" : Theme.primaryColorLight,
+          ]}
           style={styles.gradient}
         >
           <Image source={assets.logo} style={styles.logo} />
@@ -32,57 +42,70 @@ function LoginScreen({ navigation }) {
       </View>
 
       <View style={styles.body}>
-
-      <KeyboardAvoidingView 
-      behavior={Platform.OS ==='ios' ? 'padding' : null} 
-      style={{flex:1}}>
-
-
-        <View style={styles.shadow} />
-        <View style={styles.curveView}>
-          <View style={styles.headerWrapper}>
-            <Typo xxl>Welcome Back!</Typo>
-            <Space space={10} />
-            <Typo grey>Please enter your account details to log in</Typo>
-          </View>
-
-          <View style={styles.infoWrapper}>
-
-           <View style={{height:50,marginTop:10}}>
-            <InputBox placeholder={'Email'} />
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : null}
+          style={{ flex: 1 }}
+        >
+          <View style={styles.shadow} />
+          <View
+            style={[
+              styles.curveView,
+              {
+                backgroundColor: isDarkMode ? "black" : "white",
+              },
+            ]}
+          >
+            <View style={styles.headerWrapper}>
+              <Typo xxl>Welcome Back!</Typo>
+              <Space space={10} />
+              <Typo grey>Please enter your account details to log in</Typo>
             </View>
 
-            <View style={{height:50,marginTop:20}}>
-            <InputBox secureTextEntry={true} placeholder={'Password'} />
-            
-            </View>
-           <TouchableOpacity>
-           <Typo s style={{textAlign:'right',color:Theme.secondaryColor}}>Forgot Password</Typo>
-           </TouchableOpacity>
-          </View>
+            <View style={styles.infoWrapper}>
+              <View style={{ height: 50, marginTop: 10 }}>
+                <InputBox placeholder={"Email"} />
+              </View>
 
-          <View style={styles.buttonWrapper}>
-            <FullButton handlePress={()=>navigation.navigate("MainRoute")} color={Theme.secondaryColor} label={"Login"} />
-            <View style={styles.or}>
-            <View style={styles.line}/>
-            <Typo>OR</Typo>
-            <View style={styles.line}/>
-            </View>
-            <FullButtonStroke image={assets.google} label={'Sign in with Google'} color={'#e0e0e0'}/>
-            <View style={Theme.align}>
-              <Typo light>Don't have an account? </Typo>
-              <TouchableOpacity onPress={()=>navigation.navigate("CreateAccountScreen")}>
-                <Typo style={{ color: Theme.secondaryColor }}>Sign Up</Typo>
+              <View style={{ height: 50, marginTop: 20 }}>
+                <InputBox secureTextEntry={true} placeholder={"Password"} />
+              </View>
+              <TouchableOpacity>
+                <Typo
+                  s
+                  style={{ textAlign: "right", color: Theme.secondaryColor }}
+                >
+                  Forgot Password
+                </Typo>
               </TouchableOpacity>
             </View>
+
+            <View style={styles.buttonWrapper}>
+              <FullButton
+                handlePress={() => navigation.navigate("MainRoute")}
+                color={Theme.secondaryColor}
+                label={"Login"}
+              />
+              <View style={styles.or}>
+                <View style={styles.line} />
+                <Typo>OR</Typo>
+                <View style={styles.line} />
+              </View>
+              <FullButtonStroke
+                image={assets.google}
+                label={"Sign in with Google"}
+                color={Theme.secondaryColor}
+              />
+              <View style={Theme.align}>
+                <Typo light>Don't have an account? </Typo>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("CreateAccountScreen")}
+                >
+                  <Typo style={{ color: Theme.secondaryColor }}>Sign Up</Typo>
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
-        </View>
-
         </KeyboardAvoidingView>
-
-
-
-        
       </View>
     </View>
   );
@@ -94,7 +117,6 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Theme.primaryColorLight,
     width: "100%",
   },
   header: {

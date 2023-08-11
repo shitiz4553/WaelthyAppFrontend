@@ -20,9 +20,10 @@ import FullButton from "../components/Buttons/FullButton";
 import FullButtonStroke from "../components/Buttons/FullButtonStroke";
 import Theme from "../src/Theme";
 import { Ionicons } from '@expo/vector-icons';
-
-import * as ImagePicker from 'expo-image-picker';
 import CategoryCard from "../components/Analytics/CategoryCard";
+import * as Sharing from 'expo-sharing';
+import * as ImagePicker from 'expo-image-picker';
+import CustomView from "../components/Utils/CustomView";
 
 LogBox.ignoreAllLogs();
 
@@ -58,9 +59,26 @@ function CTDetailsScreen({route}){
       };
 
 
+      const shareAttachment = async (attachmentUri) => {
+        console.log('lol')
+        if (attachmentUri) {
+            try {
+                const result = await Sharing.shareAsync(attachmentUri);
+                if (result.action === Sharing.ShareAction.shared) {
+                    console.log("Attachment shared successfully");
+                } else if (result.action === Sharing.ShareAction.dismissed) {
+                    console.log("Sharing dismissed");
+                }
+            } catch (error) {
+                console.log("Error sharing attachment:", error);
+            }
+        }
+    };
+
+
     
     return (
-      <View style={styles.container}>
+      <CustomView>
         <CustomHeader label={item.category} />
         <View style={styles.body}>
           <ScrollView contentContainerStyle={{ alignItems: "center" }}>
@@ -145,7 +163,7 @@ function CTDetailsScreen({route}){
               </View>
               {!attachment ? (
                 <View style={styles.direction}>
-                  <TouchableOpacity
+                  {/* <TouchableOpacity
                     style={[
                       styles.wrapper,
                       {
@@ -159,7 +177,7 @@ function CTDetailsScreen({route}){
                       color={isDarkMode ? "white" : "black"}
                     />
                     <Typo light>Add Receipt</Typo>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                   <TouchableOpacity
                     onPress={pickImage}
                     style={[
@@ -189,7 +207,9 @@ function CTDetailsScreen({route}){
                     <Typo>Attachment Uploaded</Typo>
                   </View>
                   <View style={[Theme.align, { gap: 15 }]}>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => shareAttachment(attachment)}
+                    >
                       <Typo
                         style={{
                           color: Theme.secondaryColor,
@@ -223,7 +243,7 @@ function CTDetailsScreen({route}){
             </View>
           </View>
         </RBSheet>
-      </View>
+      </CustomView>
     );}
 export default CTDetailsScreen;
 
