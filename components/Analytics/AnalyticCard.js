@@ -44,7 +44,7 @@ function AnalyticCard({
           },
         ]}
       ></View>
-      <View style={{ flexDirection: "row", alignItems: "center", padding: 8 }}>
+      <View style={{ flexDirection: "row", alignItems: "center", padding: 6 }}>
         <View
           style={[
             styles.circle,
@@ -59,11 +59,11 @@ function AnalyticCard({
             color={isDarkMode ? "white" : "black"}
           />
         </View>
-        <Typo>{label}</Typo>
+        <Typo s>{label}</Typo>
       </View>
 
       <View style={styles.amountWrapper}>
-        <Typo>CHF {amount}</Typo>
+        <Typo s>CHF {amount}</Typo>
         <Ionicons
           name={"arrow-forward-outline"}
           size={18}
