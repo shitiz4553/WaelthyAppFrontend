@@ -54,12 +54,15 @@ function LoginScreen({ navigation }) {
 
             <View style={{height:50,marginTop:20}}>
             <InputBox secureTextEntry={true} placeholder={'Password'} />
+            
             </View>
-
+           <TouchableOpacity>
+           <Typo s style={{textAlign:'right',color:Theme.secondaryColor}}>Forgot Password</Typo>
+           </TouchableOpacity>
           </View>
 
           <View style={styles.buttonWrapper}>
-            <FullButton color={Theme.secondaryColor} label={"Login"} />
+            <FullButton handlePress={()=>navigation.navigate("MainRoute")} color={Theme.secondaryColor} label={"Login"} />
             <View style={styles.or}>
             <View style={styles.line}/>
             <Typo>OR</Typo>

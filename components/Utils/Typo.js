@@ -14,6 +14,7 @@ const Typo = ({
   m,
   s,
   xs,
+  white,
   fontFamily,
   style,
   ...props
@@ -30,7 +31,7 @@ const Typo = ({
 
   const fontStyles = {
     fontFamily: light ? Theme.OutfitLight : Theme.OutfitMedium,
-    color: grey ? Theme.lightTextcolor : 'black',
+    color: grey ? Theme.lightTextcolor : white ? "white" : 'black',
   };
 
   // Merge the font size styles, font family, and provided styles

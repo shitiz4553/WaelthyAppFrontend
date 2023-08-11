@@ -3,16 +3,21 @@ import {StyleSheet,Platform,Text} from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import Theme from '../src/Theme';
 import CreateAccountScreen from '../screens/CreateAccountScreen';
 import LoginScreen from '../screens/LoginScreen';
+import HomeScreen from '../screens/HomeScreen';
+import AnalyticsScreen from '../screens/AnalyticsScreen';
+import AcademyScreen from '../screens/AcademyScreen';
+import AccountsScreen from '../screens/AccountsScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const activeIconColor = Theme.primaryColor;
-const inactiveIconColor = '#1B0C38';
+const inactiveIconColor = '#9FA5AA';
 
 
 export default function MyStack() {
@@ -21,70 +26,61 @@ export default function MyStack() {
       <Stack.Navigator screenOptions={{headerMode:false}}>
         <Stack.Screen name="CreateAccountScreen" component={CreateAccountScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen name="MainRoute" component={MainRoute} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
 
-// function MainRoute() {
-//     return (
-//       <Tab.Navigator
-//         screenOptions={({ route }) => ({
-//           tabBarIcon: ({ focused }) => {
-//             let iconSource;
-//             let iconColor;
+function MainRoute() {
+    return (
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused }) => {
+            let iconSource;
+            let iconColor;
 
-//             switch (route.name) {
-//               case "Home":
-//                 iconSource = "home-sharp";
-//                 break;
-//               case "Tools":
-//                 iconSource = "md-document-text";
-//                 break;
-//               case "Profile":
-//                 iconSource = "person";
-//                 break;
-//             }
+            switch (route.name) {
+              case "Home":
+                iconSource = "home";
+                break;
+              case "Analytics":
+                iconSource = "activity";
+                break;
+              case "Academy":
+                iconSource = "grid";
+                break;
+              case "Accounts":
+                iconSource = "book";
+                break;
+              case "Profile":
+                iconSource = "user";
+                break;
+            }
 
-//             if (focused) {
-//               iconColor = activeIconColor;
-//             } else {
-//               iconColor = inactiveIconColor;
-//             }
+            if (focused) {
+              iconColor = activeIconColor;
+            } else {
+              iconColor = inactiveIconColor;
+            }
 
-//             return <Ionicons name={iconSource} size={24} color={iconColor} />;
-//           },
-//           tabBarStyle: [styles.tabbarstyle],
-//           tabBarActiveTintColor: Theme.primaryColor,
-//           tabBarInactiveTintColor: "#1B0C38",
-//           tabBarLabelStyle:{
-//             fontSize:14,
-//             padding:0,
-//             margin:0,
-//             fontFamily:Theme.MulishRegular,
-//             marginBottom:Platform.OS=='android' ? 12 : 0
-//           }
-//         })}
-//       >
-//         <Tab.Screen
-//           options={{ headerShown: false }}
-//           name="Home"
-//           component={HomeScreen}
-//         />
-//         <Tab.Screen
-//           options={{ headerShown: false }}
-//           name="Tools"
-//           component={ToolsScreen}
-//         />
-//         <Tab.Screen
-//           options={{ headerShown: false }}
-//           name="Profile"
-//           component={ProfileScreen}
-//         />
-//       </Tab.Navigator>
-//     );
-// }
+            return <Feather name={iconSource} size={24} color={iconColor} />;
+          },
+          tabBarStyle: [styles.tabbarstyle],
+          tabBarActiveTintColor: Theme.primaryColor,
+          tabBarInactiveTintColor: "#9FA5AA",
+          headerShown: false,
+        })}
+      >
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Analytics" component={AnalyticsScreen} />
+        <Tab.Screen name="Academy" component={AcademyScreen} />
+        <Tab.Screen name="Accounts" component={AccountsScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
+      </Tab.Navigator>
+    );
+}
 
 const styles= StyleSheet.create({
     tabbarstyle:{
