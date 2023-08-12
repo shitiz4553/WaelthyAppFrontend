@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { 
-    View,
-    Image,
-    StyleSheet,
-    ScrollView,
-    TouchableOpacity,
-    RefreshControl,
+import {
+  View,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  RefreshControl,
 } from "react-native";
 import CustomHeader from "../components/Headers/CustomHeader";
 import DurationToggle from "../components/HomeScreen/DurationToggle";
@@ -15,7 +15,7 @@ import BudgetHealth from "../components/HomeScreen/BudgetHealth";
 import Typo from "../components/Utils/Typo";
 import BudgetCard from "../components/HomeScreen/BudgetCard";
 import assets from "../assets/assets";
-import {budgets, expensesData, goals} from "../Data/Data"
+import { budgets, expensesData, goals } from "../Data/Data";
 import GoalCard from "../components/HomeScreen/GoalCard";
 import CustomView from "../components/Utils/CustomView";
 import useStore from "../store";
@@ -23,156 +23,175 @@ import Theme from "../src/Theme";
 import TableData from "../components/HomeScreen/TableData";
 import TableHeading from "../components/HomeScreen/TableHeading";
 
-function HomeScreen({navigation}){
+function HomeScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [selectedTag, setSelectedTag] = useState("Housing");
-  const isDarkMode = useStore((state) => state.isDarkMode)
+  const isDarkMode = useStore((state) => state.isDarkMode);
   function handleRefresh() {
-    // Simulate a data fetch or any other asynchronous task
-    // You can replace this with your actual data fetching logic
     setRefreshing(true);
     setTimeout(() => {
       setRefreshing(false);
-    }, 2000); // Simulating a 2-second delay
+    }, 2000);
   }
 
-  const tags = ["Housing", "Personal Care", "Savings/Investments", "Academy", "Accounts"];
+  const tags = [
+    "Housing",
+    "Personal Care",
+    "Savings/Investments",
+    "Academy",
+    "Accounts",
+  ];
 
-    return (
-      <CustomView>
-        <CustomHeader edit={false} logoMode={true} />
-        <View style={styles.body}>
-          <ScrollView
-            refreshControl={
-              <RefreshControl
-                refreshing={refreshing}
-                onRefresh={handleRefresh}
-                colors={["grey"]} // Colors for the loading spinner (Android only)
-                tintColor={"grey"} // Color for the loading spinner (iOS only)
-              />
-            }
-            contentContainerStyle={{ alignItems: "center" }}
-          >
-            <DurationToggle />
-            <Space space={15} />
+  //assuming you are fetching the needs and wants from your api and storing it in a state.
+  const [needs] = useState(5000)
+  const [wants] = useState(2500)
+  const [saves] = useState(2500)
 
-            {/* pass your total spending stats here : */}
-            <TotalSpentCard totalAmount="5,000" amountSpent={"1,150"} />
+  return (
+    <CustomView>
+      <CustomHeader edit={false} logoMode={true} />
+      <View style={styles.body}>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              colors={["grey"]} // Colors for the loading spinner (Android only)
+              tintColor={"grey"} // Color for the loading spinner (iOS only)
+            />
+          }
+          contentContainerStyle={{ alignItems: "center" }}
+        >
+          <DurationToggle />
 
-            <Space space={25} />
+          <Space space={15} />
 
-            <BudgetHealth needsValue={55} wantsValue={-55} savesValue={-55} />
+          {/* pass your total spending stats here : */}
+          <TotalSpentCard totalAmount="5,000" amountSpent={"1,150"} />
 
-            <Space space={25} />
+          <Space space={25} />
 
-            <View style={styles.aligner}>
-              <Typo light grey l>
-                Budgets
-              </Typo>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("DetailsScreen", {
-                    item: "budget",
-                  })
-                }
-              >
-                <Image source={assets.expand} style={styles.expand} />
-              </TouchableOpacity>
-            </View>
+          <BudgetHealth
+            needs={needs}
+            wants={wants}
+            saves={saves}
+            needsValue={55} // pass the increment and decrement values based on your previous data.
+            wantsValue={-55} // pass the increment and decrement values based on your previous data.
+            savesValue={-55} // pass the increment and decrement values based on your previous data.
+          />
 
-            {budgets.slice(0, 2).map((item, index) => {
-              return <BudgetCard item={item} key={index} />;
-            })}
+          <Space space={25} />
 
-            <Space space={25} />
-
-            <View style={styles.aligner}>
-              <Typo light grey l>
-                Goals
-              </Typo>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("DetailsScreen", {
-                    item: "goals",
-                  })
-                }
-              >
-                <Image source={assets.expand} style={styles.expand} />
-              </TouchableOpacity>
-            </View>
-
-            {goals.slice(0, 2).map((item, index) => {
-              return <GoalCard item={item} key={index} />;
-            })}
-
-            <Space space={25} />
-
-            <View style={styles.aligner}>
-              <Typo light grey l>
-                Expenses
-              </Typo>
-              <TouchableOpacity>
-                <Image source={assets.expand} style={styles.expand} />
-              </TouchableOpacity>
-            </View>
-
-            <ScrollView
-              horizontal
-              style={styles.tagholder}
-              showsHorizontalScrollIndicator={false}
+          <View style={styles.aligner}>
+            <Typo light grey l>
+              Budgets
+            </Typo>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("DetailsScreen", {
+                  item: "budget",
+                })
+              }
             >
-              {tags.map((tag, index) => (
-                <TouchableOpacity
-                  key={index}
-                  onPress={() => setSelectedTag(tag)}
-                  style={[
-                    styles.tag,
-                    {
-                      backgroundColor:
-                        selectedTag === tag
-                          ? "#D3AF36"
-                          : isDarkMode
-                          ? Theme.containerGreyDarkMode
-                          : Theme.containerGrey,
-                    },
-                  ]}
-                >
-                  <Typo
-                    white={selectedTag === tag ? true : false}
-                  >
-                    {tag}
-                  </Typo>
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
+              <Image source={assets.expand} style={styles.expand} />
+            </TouchableOpacity>
+          </View>
 
-           <View style={{width:'100%',paddingHorizontal:20}}>
-           {expensesData.map((category, categoryIndex) => {
+          {budgets.slice(0, 2).map((item, index) => {
+            return <BudgetCard item={item} key={index} />;
+          })}
+
+          <Space space={25} />
+
+          <View style={styles.aligner}>
+            <Typo light grey l>
+              Goals
+            </Typo>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("DetailsScreen", {
+                  item: "goals",
+                })
+              }
+            >
+              <Image source={assets.expand} style={styles.expand} />
+            </TouchableOpacity>
+          </View>
+
+          {goals.slice(0, 2).map((item, index) => {
+            return <GoalCard item={item} key={index} />;
+          })}
+
+          <Space space={25} />
+
+          <View style={styles.aligner}>
+            <Typo light grey l>
+              Expenses
+            </Typo>
+            <TouchableOpacity>
+              <Image source={assets.expand} style={styles.expand} />
+            </TouchableOpacity>
+          </View>
+
+          <ScrollView
+            horizontal
+            style={styles.tagholder}
+            showsHorizontalScrollIndicator={false}
+          >
+            {tags.map((tag, index) => (
+              <TouchableOpacity
+                key={index}
+                onPress={() => setSelectedTag(tag)}
+                style={[
+                  styles.tag,
+                  {
+                    backgroundColor:
+                      selectedTag === tag
+                        ? "#D3AF36"
+                        : isDarkMode
+                        ? Theme.containerGreyDarkMode
+                        : Theme.containerGrey,
+                  },
+                ]}
+              >
+                <Typo white={selectedTag === tag ? true : false}>{tag}</Typo>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+
+          <View style={{ width: "100%", paddingHorizontal: 20 }}>
+            {expensesData.map((category, categoryIndex) => {
               if (selectedTag === category.tabOneHeading) {
                 return (
-                  <View style={[styles.heading,{
-                    backgroundColor:isDarkMode ? "black" : "white"
-                  }]} key={categoryIndex}>
+                  <View
+                    style={[
+                      styles.heading,
+                      {
+                        backgroundColor: isDarkMode ? "black" : "white",
+                      },
+                    ]}
+                    key={categoryIndex}
+                  >
                     {/* Render category headings and tabs here */}
 
-                    <TableHeading category={category}/>
+                    <TableHeading category={category} />
                     {category.expenses.map((expense, expenseIndex) => (
                       <View
-                      key={expenseIndex}
-                      style={[
-                        styles.expenseContainer,
-                        {
-                          backgroundColor:
-                            expenseIndex % 2 === 0
-                              ? isDarkMode
-                                ? Theme.containerGreyDarkMode
-                                : '#F9F9F9'
-                              : isDarkMode
-                              ? "black"
-                              : "white",
-                        },
-                      ]}
-                    >
+                        key={expenseIndex}
+                        style={[
+                          styles.expenseContainer,
+                          {
+                            backgroundColor:
+                              expenseIndex % 2 === 0
+                                ? isDarkMode
+                                  ? Theme.containerGreyDarkMode
+                                  : "#F9F9F9"
+                                : isDarkMode
+                                ? "black"
+                                : "white",
+                          },
+                        ]}
+                      >
                         <TableData expense={expense} />
                       </View>
                     ))}
@@ -182,11 +201,12 @@ function HomeScreen({navigation}){
                 return null;
               }
             })}
-           </View>
-          </ScrollView>
-        </View>
-      </CustomView>
-    );}
+          </View>
+        </ScrollView>
+      </View>
+    </CustomView>
+  );
+}
 export default HomeScreen;
 
 const styles = StyleSheet.create({
@@ -225,6 +245,6 @@ const styles = StyleSheet.create({
   expenseContainer: {
     paddingVertical: 15,
     width: "100%",
-    paddingHorizontal:10
+    paddingHorizontal: 10,
   },
 });

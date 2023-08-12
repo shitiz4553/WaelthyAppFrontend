@@ -8,7 +8,7 @@ import Typo from "../Utils/Typo";
 import Theme from "../../src/Theme";
 import Space from "../Utils/Space";
 
-function BudgetHealth({needsValue, wantsValue, savesValue}){
+function BudgetHealth({needsValue, wantsValue, savesValue, needs,saves,wants}){
 
     const getColorStyle = (value) => {
         return value !== null && value >= 0 ? { color: "green" } : { color: "red" };
@@ -31,7 +31,7 @@ function BudgetHealth({needsValue, wantsValue, savesValue}){
         <View style={styles.barWrapper}>
         <View style={styles.needs}>
         <View style={styles.flex}>
-        <Typo black s>CHF 5000</Typo>
+        <Typo black s>CHF {needs}</Typo>
         <Typo black s light>Needs</Typo>
         <Space space={8}/>
         <Typo light style={getColorStyle(needsValue)}>{formatValue(needsValue)}</Typo>
@@ -39,7 +39,7 @@ function BudgetHealth({needsValue, wantsValue, savesValue}){
         </View>
         <View style={styles.wants}>
         <View style={styles.flex}>
-        <Typo black s>CHF 5000</Typo>
+        <Typo black s>CHF {wants}</Typo>
         <Typo black s light>Wants</Typo> 
         <Space space={8}/>
         <Typo light style={getColorStyle(wantsValue)}>{formatValue(wantsValue)}</Typo>
@@ -47,7 +47,7 @@ function BudgetHealth({needsValue, wantsValue, savesValue}){
         </View>
         <View style={styles.saves}>
         <View style={styles.flex}>
-        <Typo black s>CHF 5000</Typo>
+        <Typo black s>CHF {saves}</Typo>
         <Typo black s light>Saves</Typo>
         <Space space={8}/>
         <Typo light style={getColorStyle(savesValue)}>{formatValue(savesValue)}</Typo>
