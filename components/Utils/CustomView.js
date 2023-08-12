@@ -8,7 +8,7 @@ const CustomView = ({ children }) => {
   return (
 
       <View
-        style={[styles.container, { backgroundColor:isDarkMode ? "black" : null }]}
+        style={[styles.container, { backgroundColor:isDarkMode ? "black" : "#f7f7f7" }]}
       >
          {children}
       </View>

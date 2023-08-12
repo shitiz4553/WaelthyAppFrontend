@@ -25,7 +25,7 @@ import TableHeading from "../components/HomeScreen/TableHeading";
 
 function HomeScreen({navigation}){
   const [refreshing, setRefreshing] = useState(false);
-  const [selectedTag, setSelectedTag] = useState(null);
+  const [selectedTag, setSelectedTag] = useState("Housing");
   const isDarkMode = useStore((state) => state.isDarkMode)
   function handleRefresh() {
     // Simulate a data fetch or any other asynchronous task
