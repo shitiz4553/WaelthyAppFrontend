@@ -37,7 +37,7 @@ function ProfileScreen({navigation}){
 
     return (
       <CustomView>
-        <CustomHeader label={"Account"} />
+        <CustomHeader edit={true}  label={"Account"} />
         <KeyboardAvoidingView
           style={{ flex: 1 }}
           behavior={Platform.OS === "ios" ? "padding" : null}

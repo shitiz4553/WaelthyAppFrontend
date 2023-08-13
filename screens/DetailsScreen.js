@@ -28,6 +28,27 @@ function DetailsScreen({route}){
     const refRBSheetGoal = useRef();
     const [refreshing, setRefreshing] = useState(false);
     const isDarkMode = useStore((state) => state.isDarkMode);
+    const [dueDate, setDueDate] = useState("");
+
+
+    const [activeMonth, setActiveMonth] = useState("Jan");
+    const [activeWeek, setActiveWeek] = useState("Week 1");
+    const [selectedDuration,setSelectedDuration] = useState("");
+  
+    const handleDurationChange = (duration, activeLabel) => {
+        if (duration === "month") {
+            setActiveMonth(activeLabel);
+            console.log(activeLabel)
+            setSelectedDuration(duration)
+        } else if (duration === "week") {
+            setActiveWeek(activeLabel);
+            console.log(activeLabel)
+            setSelectedDuration(duration)
+        }
+    };
+
+
+
     function handleRefresh() {
       // Simulate a data fetch or any other asynchronous task
       // You can replace this with your actual data fetching logic
@@ -47,10 +68,29 @@ function DetailsScreen({route}){
         }
     }
 
+    const formatDueDateInput = (input) => {
+      // Remove all non-numeric characters
+      const cleanedInput = input.replace(/\D/g, "");
+    
+      // Format input with slashes
+      let formattedInput = "";
+      for (let i = 0; i < cleanedInput.length; i++) {
+        if ((i === 2 || i === 4) && i !== 6) {
+          formattedInput += "/";
+        }
+        formattedInput += cleanedInput[i];
+      }
+    
+      return formattedInput.slice(0, 10); // Limit input to 10 characters (DD/MM/YYYY)
+    };
+    
+    
+
+    
 
     return (
       <View style={styles.container}>
-        <CustomHeader label={item === "budget" ? "Budget" : "Goals"} />
+        <CustomHeader edit={true}  label={item === "budget" ? "Budget" : "Goals"} />
         <View style={styles.body}>
           <ScrollView
             refreshControl={
@@ -63,12 +103,16 @@ function DetailsScreen({route}){
             }
             contentContainerStyle={{ alignItems: "center" }}
           >
-            <DurationToggle />
+            <DurationToggle
+              activeMonth={activeMonth}
+              activeWeek={activeWeek}
+              onDurationChange={handleDurationChange}
+            />
             <Space space={15} />
             <TotalSpentCard
               handleAddPress={handleSheet}
               amountSpent={"1,150"}
-              label={item ==="budget" ? "Total Spent" : "Total Saved"}
+              label={item === "budget" ? "Total Spent" : "Total Saved"}
             />
             <Space space={15} />
             <View style={styles.aligner}>
@@ -84,8 +128,6 @@ function DetailsScreen({route}){
               : goals.map((item, index) => {
                   return <GoalCard item={item} key={index} />;
                 })}
-
-
           </ScrollView>
         </View>
 
@@ -131,8 +173,6 @@ function DetailsScreen({route}){
           </View>
         </RBSheet>
 
-
-
         <RBSheet
           ref={refRBSheetGoal}
           closeOnDragDown={true}
@@ -167,7 +207,12 @@ function DetailsScreen({route}){
               <InputBox keyboardType={"numeric"} placeholder={"Target Value"} />
             </View>
             <View style={styles.boxWrapper}>
-              <InputBox keyboardType={"numeric"} placeholder={"Due Date"} />
+              <InputBox
+                keyboardType="numeric"
+                placeholder="Due Date: DD/MM/YY"
+                value={dueDate}
+                 onChangeText={(text) => setDueDate(formatDueDateInput(text))}
+              />
             </View>
             <Space space={10} />
             <FullButton color={Theme.secondaryColor} label={"Add"} />

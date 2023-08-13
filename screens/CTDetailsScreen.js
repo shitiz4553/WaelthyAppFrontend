@@ -24,6 +24,7 @@ import CategoryCard from "../components/Analytics/CategoryCard";
 import * as Sharing from 'expo-sharing';
 import * as ImagePicker from 'expo-image-picker';
 import CustomView from "../components/Utils/CustomView";
+import { Camera, CameraType } from 'expo-camera';
 
 LogBox.ignoreAllLogs();
 
@@ -32,12 +33,41 @@ function CTDetailsScreen({route}){
     const {item,color,icon} = route.params;
     const [attachment,setAttachment] = useState(null)
     const sheet = useRef();
+    const [cameraVisible, setCameraVisible] = useState(false);
+    const [type, setType] = useState(CameraType.back);
+    const [permission, requestPermission] = Camera.useCameraPermissions();
+
+  const cameraRef = useRef()
+
+    const takePhoto = async () => {
+      if (cameraRef.current) {
+        const photo = await cameraRef.current.takePictureAsync();
+        setAttachment(photo.uri);
+        setCameraVisible(false);
+        console.log("Clicked photograph URI:", photo.uri);
+      }
+    };
+    
     const isDarkMode = useStore((state) => state.isDarkMode);
     const handleAddPress = () =>{
         sheet.current.open()
     }
 
-
+    const [activeMonth, setActiveMonth] = useState("Jan");
+    const [activeWeek, setActiveWeek] = useState("Week 1");
+    const [selectedDuration,setSelectedDuration] = useState("");
+  
+    const handleDurationChange = (duration, activeLabel) => {
+        if (duration === "month") {
+            setActiveMonth(activeLabel);
+            console.log(activeLabel)
+            setSelectedDuration(duration)
+        } else if (duration === "week") {
+            setActiveWeek(activeLabel);
+            console.log(activeLabel)
+            setSelectedDuration(duration)
+        }
+    };
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -82,7 +112,11 @@ function CTDetailsScreen({route}){
         <CustomHeader label={item.category} />
         <View style={styles.body}>
           <ScrollView contentContainerStyle={{ alignItems: "center" }}>
-            <DurationToggle />
+            <DurationToggle
+              activeMonth={activeMonth}
+              activeWeek={activeWeek}
+              onDurationChange={handleDurationChange}
+            />
             <Space space={15} />
 
             {/* pass your total spending stats here : */}
@@ -125,7 +159,7 @@ function CTDetailsScreen({route}){
         <RBSheet
           ref={sheet}
           closeOnDragDown={true}
-          height={windowHeight / 1.7}
+          height={windowHeight / 1.1}
           closeOnPressMask={false}
           customStyles={{
             wrapper: {
@@ -163,7 +197,8 @@ function CTDetailsScreen({route}){
               </View>
               {!attachment ? (
                 <View style={styles.direction}>
-                  {/* <TouchableOpacity
+                  <TouchableOpacity
+                  onPress={()=>setCameraVisible(true)}
                     style={[
                       styles.wrapper,
                       {
@@ -177,7 +212,7 @@ function CTDetailsScreen({route}){
                       color={isDarkMode ? "white" : "black"}
                     />
                     <Typo light>Add Receipt</Typo>
-                  </TouchableOpacity> */}
+                  </TouchableOpacity>
                   <TouchableOpacity
                     onPress={pickImage}
                     style={[
@@ -232,8 +267,25 @@ function CTDetailsScreen({route}){
                   </View>
                 </View>
               )}
+
+
+        {cameraVisible && (
+          <View style={{ flex: 1 }}>
+            <Camera
+              ref={cameraRef}
+              style={{ flex: 1 }}
+              type={type}
+              ratio="16:9"
+            />
+            <TouchableOpacity onPress={takePhoto} style={styles.captureButton}>
+              <Typo style={styles.captureButtonText}>Take Photo</Typo>
+            </TouchableOpacity>
+          </View>
+        )}
+
+
             </View>
-            <View style={{ flex: 0.4, justifyContent: "space-evenly" }}>
+            <View style={{ flex: 0.25, justifyContent: "space-evenly" }}>
               <FullButton color={Theme.secondaryColor} label={"Add"} />
               <FullButtonStroke
                 handlePress={() => sheet.current.close()}
@@ -297,5 +349,18 @@ const styles = StyleSheet.create({
   headingContainer: {
     width: "90%",
     marginTop:10
+},
+captureButton: {
+  position: 'absolute',
+  bottom: 20,
+  alignSelf: 'center',
+  backgroundColor: 'rgba(0, 0, 0, 0.6)',
+  paddingHorizontal: 20,
+  paddingVertical: 10,
+  borderRadius: 8,
+},
+captureButtonText: {
+  color: 'white',
+  fontSize: 16,
 },
 });

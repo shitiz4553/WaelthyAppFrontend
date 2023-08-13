@@ -30,7 +30,7 @@ function NotificationScreen({navigation}){
 
     return (
       <CustomView>
-        <CustomHeader label={"Notifications"} />
+        <CustomHeader edit={true}  label={"Notifications"} />
         <View style={styles.body}>
         <ScrollView style={{paddingHorizontal:20}}>
         {Object.keys(groupedNotifications).map((time, index) => (

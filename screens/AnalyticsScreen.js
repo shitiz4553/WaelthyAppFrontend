@@ -69,6 +69,9 @@ const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
                 noOfSections={5}
                 barBorderRadius={25}
                 frontColor="#B6DEC5"
+                xAxisLabelTextStyle={{color:isDarkMode ?"white": "black"}}
+                yAxisTextStyle={{color:isDarkMode ?"white": "black"}}
+                barStyle={{color:'red'}}
                 data={chartData.flatMap((month) => {
                   if (selectedDuration === "week") {
                     if (month.month === activeMonth) {

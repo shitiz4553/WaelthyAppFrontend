@@ -27,6 +27,24 @@ function HomeScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [selectedTag, setSelectedTag] = useState("Housing");
   const isDarkMode = useStore((state) => state.isDarkMode);
+
+  const [activeMonth, setActiveMonth] = useState("Jan");
+  const [activeWeek, setActiveWeek] = useState("Week 1");
+  const [selectedDuration,setSelectedDuration] = useState("");
+
+  const handleDurationChange = (duration, activeLabel) => {
+      if (duration === "month") {
+          setActiveMonth(activeLabel);
+          console.log(activeLabel)
+          setSelectedDuration(duration)
+      } else if (duration === "week") {
+          setActiveWeek(activeLabel);
+          console.log(activeLabel)
+          setSelectedDuration(duration)
+      }
+  };
+
+  
   function handleRefresh() {
     setRefreshing(true);
     setTimeout(() => {
@@ -62,7 +80,11 @@ function HomeScreen({ navigation }) {
           }
           contentContainerStyle={{ alignItems: "center" }}
         >
-          <DurationToggle />
+               <DurationToggle
+              activeMonth={activeMonth}
+              activeWeek={activeWeek}
+              onDurationChange={handleDurationChange}
+            />
 
           <Space space={15} />
 

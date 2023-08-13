@@ -420,7 +420,7 @@ export const monthData = [
   {
     month: "Jan",
     weeks: [
-      { weekLabel: "Week 1", data: [25, 250, 180, 200, 300, 240, 210] },
+      { weekLabel: "Week 1", data: [125, 250, 180, 200, 300, 240, 210] },
       { weekLabel: "Week 2", data: [355, 300, 220, 260, 350, 280, 250] },
       { weekLabel: "Week 3", data: [255, 220, 150, 280, 320, 260, 290] },
       { weekLabel: "Week 4", data: [220, 280, 300, 240, 270, 210, 320] },
