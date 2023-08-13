@@ -27,7 +27,7 @@ function AnalyticsScreen({navigation}){
   const [chartData, setChartData] = useState(monthData);
   const [activeMonth, setActiveMonth] = useState("Jan");
   const [activeWeek, setActiveWeek] = useState("Week 1");
-  const [selectedDuration,setSelectedDuration] = useState("");
+  const [selectedDuration,setSelectedDuration] = useState("week");
 
   const handleDurationChange = (duration, activeLabel) => {
       if (duration === "month") {
@@ -40,6 +40,26 @@ function AnalyticsScreen({navigation}){
           setSelectedDuration(duration)
       }
   };
+
+  function calculateTotalSpentAmount() {
+    if (selectedDuration === "week") {
+      const activeMonthData = chartData.find(month => month.month === activeMonth);
+      if (activeMonthData) {
+        const activeWeekData = activeMonthData.weeks.find(week => week.weekLabel === activeWeek);
+        if (activeWeekData) {
+          return activeWeekData.data.reduce((sum, value) => sum + value, 0);
+        }
+      }
+    } else if (selectedDuration === "month") {
+      const activeMonthData = chartData.find(month => month.month === activeMonth);
+      if (activeMonthData) {
+        return activeMonthData.weeks.reduce((monthSum, week) =>
+          monthSum + week.data.reduce((weekSum, value) => weekSum + value, 0), 0);
+      }
+    }
+    return 0; // Default value if none of the conditions match
+  }
+  
 
 const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
@@ -60,18 +80,22 @@ const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
             <Space space={15} />
 
             {/* pass your total spending stats here : */}
-            <TotalSpentCard amountSpent={"1,150"} />
+
+            <TotalSpentCard
+              amountSpent={calculateTotalSpentAmount().toString()}
+            />
 
             <View style={styles.chartContainer}>
               <BarChart
-                dashGap={12555}
+                dashGap={5}
+                rulesColor={isDarkMode ? "black" : "white"}
                 barWidth={25}
                 noOfSections={5}
                 barBorderRadius={25}
                 frontColor="#B6DEC5"
-                xAxisLabelTextStyle={{color:isDarkMode ?"white": "black"}}
-                yAxisTextStyle={{color:isDarkMode ?"white": "black"}}
-                barStyle={{color:'red'}}
+                xAxisLabelTextStyle={{ color: isDarkMode ? "white" : "black" }}
+                yAxisTextStyle={{ color: isDarkMode ? "white" : "black" }}
+                barStyle={{ color: "red" }}
                 data={chartData.flatMap((month) => {
                   if (selectedDuration === "week") {
                     if (month.month === activeMonth) {
@@ -88,7 +112,11 @@ const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
                   } else {
                     const monthTotal = month.weeks.reduce(
                       (sum, week) =>
-                        sum + (week.data.reduce((weekSum, value) => weekSum + value, 0) || 0),
+                        sum +
+                        (week.data.reduce(
+                          (weekSum, value) => weekSum + value,
+                          0
+                        ) || 0),
                       0
                     );
                     return {

@@ -15,7 +15,7 @@ import BudgetHealth from "../components/HomeScreen/BudgetHealth";
 import Typo from "../components/Utils/Typo";
 import BudgetCard from "../components/HomeScreen/BudgetCard";
 import assets from "../assets/assets";
-import { budgets, expensesData, goals } from "../Data/Data";
+import { budgets, expensesData, goals, totalSpentData } from "../Data/Data";
 import GoalCard from "../components/HomeScreen/GoalCard";
 import CustomView from "../components/Utils/CustomView";
 import useStore from "../store";
@@ -30,19 +30,33 @@ function HomeScreen({ navigation }) {
 
   const [activeMonth, setActiveMonth] = useState("Jan");
   const [activeWeek, setActiveWeek] = useState("Week 1");
-  const [selectedDuration,setSelectedDuration] = useState("");
+  const [selectedDuration,setSelectedDuration] = useState("week");
+
+  function calculateAmountSpent() {
+    if (selectedDuration === "week") {
+      return totalSpentData[activeMonth]?.weeks[activeWeek] || 0;
+    } else if (selectedDuration === "month") {
+      const activeMonthData = totalSpentData[activeMonth];
+      if (activeMonthData) {
+        return Object.values(activeMonthData.weeks).reduce((sum, value) => sum + value, 0);
+      }
+    }
+    return 0; // Default value if none of the conditions match
+  }
+  
+  
 
   const handleDurationChange = (duration, activeLabel) => {
-      if (duration === "month") {
-          setActiveMonth(activeLabel);
-          console.log(activeLabel)
-          setSelectedDuration(duration)
-      } else if (duration === "week") {
-          setActiveWeek(activeLabel);
-          console.log(activeLabel)
-          setSelectedDuration(duration)
-      }
+    if (duration === "month") {
+      setActiveMonth(activeLabel);
+      setActiveWeek("Week 1"); // Set the active week to "Week 1" whenever a new month is selected
+      setSelectedDuration(duration);
+    } else if (duration === "week") {
+      setActiveWeek(activeLabel);
+      setSelectedDuration(duration);
+    }
   };
+  
 
   
   function handleRefresh() {
@@ -80,16 +94,16 @@ function HomeScreen({ navigation }) {
           }
           contentContainerStyle={{ alignItems: "center" }}
         >
-               <DurationToggle
-              activeMonth={activeMonth}
-              activeWeek={activeWeek}
-              onDurationChange={handleDurationChange}
-            />
+          <DurationToggle
+            activeMonth={activeMonth}
+            activeWeek={activeWeek}
+            onDurationChange={handleDurationChange}
+          />
 
           <Space space={15} />
 
           {/* pass your total spending stats here : */}
-          <TotalSpentCard totalAmount="5,000" amountSpent={"1,150"} />
+          <TotalSpentCard totalAmount={totalSpentData[activeMonth]?.thisMonthBudget.toString()} amountSpent={calculateAmountSpent().toString()} />
 
           <Space space={25} />
 

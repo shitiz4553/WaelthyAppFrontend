@@ -24,32 +24,154 @@ export const spentData = [
   },
 ];
 
+export const totalSpentData = {
+  Jan: {
+    thisMonthBudget:5000,
+    weeks: {
+      "Week 1": 125,
+      "Week 2": 555,
+      "Week 3": 643,
+      "Week 4": 234,
+    },
+  },
+  Feb: {
+    thisMonthBudget:5213,
+    weeks: {
+      "Week 1": 51235,
+      "Week 2": 321,
+      "Week 3": 32,
+      "Week 4": 512,
+    },
+  },
+  Mar: {
+    thisMonthBudget:61235,
+    weeks: {
+      "Week 1": 3123,
+      "Week 2": 523,
+      "Week 3": 6453,
+      "Week 4": 23234,
+    },
+  },
+  Apr: {
+    thisMonthBudget:5000,
+    weeks: {
+      "Week 1": 125,
+      "Week 2": 555,
+      "Week 3": 643,
+      "Week 4": 234,
+    },
+  },
+  //...add more
+};
 
 export const budgets = [
   {
-    budgetTitle:"Groceries",
-    budgetAvailable:1000,
-    budgetSpent:600,
+    budgetTitle: "Groceries",
+    months: {
+      Jan: {
+        weeks: {
+          "Week 1": {
+            budgetAvailable: 1000,
+            budgetSpent: 200,
+          },
+          "Week 2": {
+            budgetAvailable: 1000,
+            budgetSpent: 300,
+          },
+          // ... and so on for other weeks
+        },
+      },
+      Feb: {
+        weeks: {
+          "Week 1": {
+            budgetAvailable: 1155,
+            budgetSpent: 644,
+          },
+          "Week 2": {
+            budgetAvailable: 1235,
+            budgetSpent: 252,
+          },
+        },
+      },
+      // ... repeat for other months
+    },
   },
   {
-    budgetTitle:"Entertainment",
-    budgetAvailable:1000,
-    budgetSpent:500,
+    budgetTitle: "Entertainment",
+    months: {
+      Jan: {
+        weeks: {
+          "Week 1": {
+            budgetAvailable: 1000,
+            budgetSpent: 150,
+          },
+          "Week 2": {
+            budgetAvailable: 1000,
+            budgetSpent: 350,
+          },
+          // ... and so on for other weeks
+        },
+      },
+      Feb: {
+        weeks: {
+          "Week 1": {
+            budgetAvailable: 1155,
+            budgetSpent: 644,
+          },
+          "Week 2": {
+            budgetAvailable: 1235,
+            budgetSpent: 252,
+          },
+        },
+      },
+      // ... repeat for other months
+    },
   },
-]
+  // ... repeat for other budgets
+];
+
 
 export const goals = [
   {
-    goalLabel:"New Car",
-    goalTarget:1000,
-    goalValue:600,
+    goalLabel: "New Car",
+    months: {
+      Jan: {
+        weeks: {
+          "Week 1": {
+            goalTarget: 1000,
+            goalValue: 200,
+          },
+          "Week 2": {
+            goalTarget: 1000,
+            goalValue: 300,
+          },
+          // ... and so on for other weeks
+        },
+      },
+      // ... repeat for other months
+    },
   },
   {
-    goalLabel:"Emergency Fund",
-    goalTarget:1000,
-    goalValue:500,
+    goalLabel: "Emergency Fund",
+    months: {
+      Jan: {
+        weeks: {
+          "Week 1": {
+            goalTarget: 1000,
+            goalValue: 150,
+          },
+          "Week 2": {
+            goalTarget: 1000,
+            goalValue: 350,
+          },
+          // ... and so on for other weeks
+        },
+      },
+      // ... repeat for other months
+    },
   },
-]
+  // ... repeat for other goals
+];
 
 
 export const notifications = [

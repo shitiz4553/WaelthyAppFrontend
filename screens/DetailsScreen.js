@@ -20,6 +20,7 @@ import InputBox from "../components/Utils/InputBox"
 import FullButton from "../components/Buttons/FullButton"
 import FullButtonStroke from "../components/Buttons/FullButtonStroke"
 import GoalCard from "../components/HomeScreen/GoalCard";
+import CustomView from "../components/Utils/CustomView";
 
 function DetailsScreen({route}){
     
@@ -36,18 +37,46 @@ function DetailsScreen({route}){
     const [selectedDuration,setSelectedDuration] = useState("");
   
     const handleDurationChange = (duration, activeLabel) => {
-        if (duration === "month") {
-            setActiveMonth(activeLabel);
-            console.log(activeLabel)
-            setSelectedDuration(duration)
-        } else if (duration === "week") {
-            setActiveWeek(activeLabel);
-            console.log(activeLabel)
-            setSelectedDuration(duration)
-        }
+      if (duration === "month") {
+        setActiveMonth(activeLabel);
+        setSelectedDuration(duration);
+      } else if (duration === "week") {
+        setActiveWeek(activeLabel);
+        setSelectedDuration(duration);
+      }
     };
 
 
+    const calculateTotalSpent = () => {
+      let totalSpent = 0;
+  
+      if (item === "budget") {
+        budgets.forEach((budget) => {
+          const monthData = budget.months[activeMonth];
+          if (monthData) {
+            const weekData = monthData.weeks[activeWeek];
+            if (weekData) {
+              totalSpent += weekData.budgetSpent;
+            }
+          }
+        });
+      } else {
+        goals.forEach((goal) => {
+          const monthData = goal.months[activeMonth];
+          if (monthData) {
+            const weekData = monthData.weeks[activeWeek];
+            if (weekData) {
+              totalSpent += weekData.goalValue;
+            }
+          }
+        });
+      }
+  
+      return totalSpent;
+    };
+    
+
+    
 
     function handleRefresh() {
       // Simulate a data fetch or any other asynchronous task
@@ -83,14 +112,14 @@ function DetailsScreen({route}){
     
       return formattedInput.slice(0, 10); // Limit input to 10 characters (DD/MM/YYYY)
     };
-    
-    
-
-    
+        
 
     return (
-      <View style={styles.container}>
-        <CustomHeader edit={true}  label={item === "budget" ? "Budget" : "Goals"} />
+      <CustomView style={styles.container}>
+        <CustomHeader
+          edit={true}
+          label={item === "budget" ? "Budget" : "Goals"}
+        />
         <View style={styles.body}>
           <ScrollView
             refreshControl={
@@ -111,7 +140,7 @@ function DetailsScreen({route}){
             <Space space={15} />
             <TotalSpentCard
               handleAddPress={handleSheet}
-              amountSpent={"1,150"}
+              amountSpent={calculateTotalSpent().toFixed(2)}
               label={item === "budget" ? "Total Spent" : "Total Saved"}
             />
             <Space space={15} />
@@ -120,13 +149,32 @@ function DetailsScreen({route}){
                 {item === "budget" ? "Budget" : "Goals"}
               </Typo>
             </View>
-
             {item === "budget"
-              ? budgets.map((item, index) => {
-                  return <BudgetCard item={item} key={index} />;
+              ? budgets.map((budget, index) => {
+                  const monthData = budget.months[activeMonth];
+                  if (!monthData) return null;
+
+                  const weekData = monthData.weeks[activeWeek];
+
+                  return (
+                    <BudgetCard
+                      item={{ ...weekData, budgetTitle: budget.budgetTitle }}
+                      key={index}
+                    />
+                  );
                 })
-              : goals.map((item, index) => {
-                  return <GoalCard item={item} key={index} />;
+              : goals.map((goal, index) => {
+                  const monthData = goal.months[activeMonth];
+                  if (!monthData) return null;
+
+                  const weekData = monthData.weeks[activeWeek];
+
+                  return (
+                    <GoalCard
+                      item={{ ...weekData, goalLabel: goal.goalLabel }}
+                      key={index}
+                    />
+                  );
                 })}
           </ScrollView>
         </View>
@@ -211,7 +259,7 @@ function DetailsScreen({route}){
                 keyboardType="numeric"
                 placeholder="Due Date: DD/MM/YY"
                 value={dueDate}
-                 onChangeText={(text) => setDueDate(formatDueDateInput(text))}
+                onChangeText={(text) => setDueDate(formatDueDateInput(text))}
               />
             </View>
             <Space space={10} />
@@ -222,7 +270,7 @@ function DetailsScreen({route}){
             />
           </View>
         </RBSheet>
-      </View>
+      </CustomView>
     );}
 export default DetailsScreen;
 
