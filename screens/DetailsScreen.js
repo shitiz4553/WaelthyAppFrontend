@@ -227,7 +227,7 @@ function DetailsScreen({route}){
             <Space space={15} />
             <FullButton color={Theme.secondaryColor} label={"Add"} />
             <FullButtonStroke
-              handlePress={() => refRBSheetBudget.current.close()}
+              handlePress={() => refRBSheetBudgetEdit.current.close()}
               label={"Cancel"}
             />
           </View>
@@ -277,7 +277,7 @@ function DetailsScreen({route}){
             <Space space={10} />
             <FullButton color={Theme.secondaryColor} label={"Add"} />
             <FullButtonStroke
-              handlePress={() => refRBSheetGoal.current.close()}
+              handlePress={() => refRBSheetGoalEdit.current.close()}
               label={"Cancel"}
             />
           </View>
