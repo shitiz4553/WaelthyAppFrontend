@@ -103,7 +103,12 @@ function HomeScreen({ navigation }) {
           <Space space={15} />
 
           {/* pass your total spending stats here : */}
-          <TotalSpentCard totalAmount={totalSpentData[activeMonth]?.thisMonthBudget.toString()} amountSpent={calculateAmountSpent().toString()} />
+          <TotalSpentCard
+            totalAmount={totalSpentData[
+              activeMonth
+            ]?.thisMonthBudget.toString()}
+            amountSpent={calculateAmountSpent().toString()}
+          />
 
           <Space space={25} />
 
@@ -132,10 +137,21 @@ function HomeScreen({ navigation }) {
               <Image source={assets.expand} style={styles.expand} />
             </TouchableOpacity>
           </View>
+          {Object.values(budgets)
+            .slice(0, 2)
+            .map((budget, index) => {
+              const monthData = budget.months[activeMonth];
+              if (!monthData) return null;
 
-          {budgets.slice(0, 2).map((item, index) => {
-            return <BudgetCard item={item} key={index} />;
-          })}
+              const weekData = monthData.weeks[activeWeek];
+
+              return (
+                <BudgetCard
+                  item={{ ...weekData, budgetTitle: budget.budgetTitle }}
+                  key={`budget_${index}`}
+                />
+              );
+            })}
 
           <Space space={25} />
 
@@ -154,9 +170,21 @@ function HomeScreen({ navigation }) {
             </TouchableOpacity>
           </View>
 
-          {goals.slice(0, 2).map((item, index) => {
-            return <GoalCard item={item} key={index} />;
-          })}
+          {Object.values(goals)
+            .slice(0, 2)
+            .map((goal, index) => {
+              const monthData = goal.months[activeMonth];
+              if (!monthData) return null;
+
+              const weekData = monthData.weeks[activeWeek];
+
+              return (
+                <GoalCard
+                  item={{ ...weekData, goalLabel: goal.goalLabel }}
+                  key={`goal_${index}`}
+                />
+              );
+            })}
 
           <Space space={25} />
 
