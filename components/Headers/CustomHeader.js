@@ -13,7 +13,7 @@ import IconHolder from "../Utils/IconHolder";
 import Typo from "../Utils/Typo";
 import { useNavigation } from "@react-navigation/native";
 
-function CustomHeader({logoMode,label,edit}){
+function CustomHeader({logoMode,label,edit,handleEditPress}){
     const navigation = useNavigation();
     return (
       <View style={styles.container}>
@@ -29,7 +29,7 @@ function CustomHeader({logoMode,label,edit}){
             )}
 
             <View style={[Theme.align, { gap: 10 }]}>
-              {edit ?<IconHolder icon={"edit"} /> : null}
+              {edit ?<IconHolder handlePress={handleEditPress} icon={"edit"} /> : null}
               <IconHolder handlePress={()=>navigation.navigate("NotificationScreen")} icon={"bell"} /> 
               <IconHolder handlePress={()=>navigation.navigate("SidebarScreen")} icon={"grid"} />
             </View>

@@ -27,10 +27,12 @@ function DetailsScreen({route}){
     const {item} = route.params;
     const refRBSheetBudget = useRef();
     const refRBSheetGoal = useRef();
+    const refRBSheetBudgetEdit = useRef();
+    const refRBSheetGoalEdit = useRef();
     const [refreshing, setRefreshing] = useState(false);
     const isDarkMode = useStore((state) => state.isDarkMode);
     const [dueDate, setDueDate] = useState("");
-
+    
 
     const [activeMonth, setActiveMonth] = useState("Jan");
     const [activeWeek, setActiveWeek] = useState("Week 1");
@@ -97,6 +99,15 @@ function DetailsScreen({route}){
         }
     }
 
+    const handleSheetEdit = () => {
+        if(item ==='budget'){
+            refRBSheetBudgetEdit.current.open()
+        }
+        else{
+            refRBSheetGoalEdit.current.open()
+        }
+    }
+
     const formatDueDateInput = (input) => {
       // Remove all non-numeric characters
       const cleanedInput = input.replace(/\D/g, "");
@@ -117,6 +128,7 @@ function DetailsScreen({route}){
     return (
       <CustomView style={styles.container}>
         <CustomHeader
+          handleEditPress={handleSheetEdit}
           edit={true}
           label={item === "budget" ? "Budget" : "Goals"}
         />
@@ -178,6 +190,101 @@ function DetailsScreen({route}){
                 })}
           </ScrollView>
         </View>
+
+        <RBSheet
+          ref={refRBSheetBudgetEdit}
+          closeOnDragDown={true}
+          height={windowHeight / 2}
+          closeOnPressMask={false}
+          customStyles={{
+            wrapper: {
+              backgroundColor: "rgba(0,0,0,0.5)",
+            },
+            draggableIcon: {
+              backgroundColor: "#000",
+            },
+            container: {
+              backgroundColor: isDarkMode
+                ? Theme.containerGreyDarkMode
+                : "#FFF",
+              borderTopLeftRadius: 25,
+              borderTopRightRadius: 25,
+            },
+          }}
+        >
+          <View style={styles.sheet}>
+            <Typo xl>Edit Budget</Typo>
+            <Space space={25} />
+            <View style={styles.boxWrapper}>
+              <InputBox placeholder={"Enter Budget Name"} />
+            </View>
+            <View style={styles.boxWrapper}>
+              <InputBox placeholder={"Type your description..."} />
+            </View>
+            <View style={styles.boxWrapper}>
+              <InputBox keyboardType={"numeric"} placeholder={"Target Value"} />
+            </View>
+            <Space space={15} />
+            <FullButton color={Theme.secondaryColor} label={"Add"} />
+            <FullButtonStroke
+              handlePress={() => refRBSheetBudget.current.close()}
+              label={"Cancel"}
+            />
+          </View>
+        </RBSheet>
+
+        <RBSheet
+          ref={refRBSheetGoalEdit}
+          closeOnDragDown={true}
+          height={windowHeight / 1.8}
+          closeOnPressMask={false}
+          customStyles={{
+            wrapper: {
+              backgroundColor: "rgba(0,0,0,0.5)",
+            },
+            draggableIcon: {
+              backgroundColor: "#000",
+            },
+            container: {
+              backgroundColor: isDarkMode
+                ? Theme.containerGreyDarkMode
+                : "#FFF",
+              borderTopLeftRadius: 25,
+              borderTopRightRadius: 25,
+            },
+          }}
+        >
+          <View style={styles.sheet}>
+            <Typo xl>Edit Saving Goal</Typo>
+            <Space space={10} />
+            <View style={styles.boxWrapper}>
+              <InputBox placeholder={"Enter Goal Name"} />
+            </View>
+            <View style={styles.boxWrapper}>
+              <InputBox placeholder={"Type your description..."} />
+            </View>
+            <View style={styles.boxWrapper}>
+              <InputBox keyboardType={"numeric"} placeholder={"Target Value"} />
+            </View>
+            <View style={styles.boxWrapper}>
+              <InputBox
+                keyboardType="numeric"
+                placeholder="Due Date: DD/MM/YY"
+                value={dueDate}
+                onChangeText={(text) => setDueDate(formatDueDateInput(text))}
+              />
+            </View>
+            <Space space={10} />
+            <FullButton color={Theme.secondaryColor} label={"Add"} />
+            <FullButtonStroke
+              handlePress={() => refRBSheetGoal.current.close()}
+              label={"Cancel"}
+            />
+          </View>
+        </RBSheet>
+
+
+
 
         <RBSheet
           ref={refRBSheetBudget}
@@ -270,6 +377,10 @@ function DetailsScreen({route}){
             />
           </View>
         </RBSheet>
+
+
+
+
       </CustomView>
     );}
 export default DetailsScreen;
