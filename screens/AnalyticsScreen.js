@@ -10,55 +10,94 @@ import DurationToggle from "../components/HomeScreen/DurationToggle";
 import Space from "../components/Utils/Space";
 import TotalSpentCard from "../components/HomeScreen/TotalSpentCard";
 import Typo from "../components/Utils/Typo";
-import { spendingsData} from "../Data/Data"
+import { monthData, spendingsData} from "../Data/Data"
 import CustomView from "../components/Utils/CustomView";
 import AnalyticCard from "../components/Analytics/AnalyticCard";
-import { ProgressChart } from "react-native-chart-kit";
 import useStore from "../store";
 import Theme from "../src/Theme";
+
+import { BarChart } from "react-native-gifted-charts";
+
 
 
 function AnalyticsScreen({navigation}){
 
   const colors = ["#B6DEC5", "#F2E7C3", "#BED3E6", "#E9D0BE", "#E9BED3"];
 
-  const chartc = [ "#e5e5e5", Theme.primaryColor];
+  const [chartData, setChartData] = useState(monthData);
+  const [activeMonth, setActiveMonth] = useState("Jan");
+  const [activeWeek, setActiveWeek] = useState("Week 1");
+  const [selectedDuration,setSelectedDuration] = useState("");
+
+  const handleDurationChange = (duration, activeLabel) => {
+      if (duration === "month") {
+          setActiveMonth(activeLabel);
+          console.log(activeLabel)
+          setSelectedDuration(duration)
+      } else if (duration === "week") {
+          setActiveWeek(activeLabel);
+          console.log(activeLabel)
+          setSelectedDuration(duration)
+      }
+  };
+
+const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
 
   const isDarkMode = useStore((state) => state.isDarkMode)
-  const progressData = {
-    labels: ["Jan", "Feb", "Mar", ], // Sample labels, replace with your labels
-    data: [0.4, 0.6, 0.5, ], // Sample progress values (between 0 and 1), replace with your data
-  };
 
     return (
       <CustomView>
         <CustomHeader edit={false} logoMode={true} />
         <View style={styles.body}>
           <ScrollView contentContainerStyle={{ alignItems: "center" }}>
-            <DurationToggle />
+            <DurationToggle
+              activeMonth={activeMonth}
+              activeWeek={activeWeek}
+              onDurationChange={handleDurationChange}
+            />
+
             <Space space={15} />
 
             {/* pass your total spending stats here : */}
             <TotalSpentCard amountSpent={"1,150"} />
 
             <View style={styles.chartContainer}>
-              <ProgressChart
-                data={progressData}
-                width={Dimensions.get("window").width - 40} // Adjust width as needed
-                height={220}
-                strokeWidth={16} // Width of the progress ring
-                radius={32} // Radius of the progress ring
-                chartConfig={{
-                  backgroundColor:isDarkMode ? "transparent" :"#FFF",
-                  backgroundGradientFrom: isDarkMode ?"transparent" : "#FFf",
-                  backgroundGradientTo: isDarkMode ? "transparent" : '#FFF',
-                  decimalPlaces: 2, // Adjust decimal places as needed
-                  color: (opacity = 1) => `rgba(38,108, 170, ${opacity})`,
-                  labelColor: (opacity = 1) => isDarkMode ? `rgba(255, 255, 255, ${opacity})` : `rgba(0, 0, 0, ${opacity})`,
-                  style: {
-                    borderRadius: 16,
-                  },
-                }}
+              <BarChart
+                dashGap={12555}
+                barWidth={25}
+                noOfSections={5}
+                barBorderRadius={25}
+                frontColor="#B6DEC5"
+                data={chartData.flatMap((month) => {
+                  if (selectedDuration === "week") {
+                    if (month.month === activeMonth) {
+                      const activeWeekData = month.weeks.find(
+                        (week) => week.weekLabel === activeWeek
+                      );
+                      return weekDays.map((day, index) => ({
+                        value: activeWeekData?.data[index] || 0,
+                        label: day,
+                      }));
+                    } else {
+                      return [];
+                    }
+                  } else {
+                    const monthTotal = month.weeks.reduce(
+                      (sum, week) =>
+                        sum + (week.data.reduce((weekSum, value) => weekSum + value, 0) || 0),
+                      0
+                    );
+                    return {
+                      value: monthTotal,
+                      label: month.month,
+                    };
+                  }
+                })}
+                yAxisThickness={0}
+                isAnimated
+                xAxisThickness={0}
+                initialSpacing={25}
               />
             </View>
             <Space space={25} />

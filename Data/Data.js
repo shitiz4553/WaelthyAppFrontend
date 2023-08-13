@@ -413,3 +413,117 @@ export const expensesData = [
     ]
   },
 ]
+
+
+
+export const monthData = [
+  {
+    month: "Jan",
+    weeks: [
+      { weekLabel: "Week 1", data: [25, 250, 180, 200, 300, 240, 210] },
+      { weekLabel: "Week 2", data: [355, 300, 220, 260, 350, 280, 250] },
+      { weekLabel: "Week 3", data: [255, 220, 150, 280, 320, 260, 290] },
+      { weekLabel: "Week 4", data: [220, 280, 300, 240, 270, 210, 320] },
+    ],
+  },
+  {
+    month: "Feb",
+    weeks: [
+      { weekLabel: "Week 1", data: [66, 230, 190, 220, 280, 250, 260] },
+      { weekLabel: "Week 2", data: [220, 260, 280, 300, 340, 310, 330] },
+      { weekLabel: "Week 3", data: [210, 240, 260, 280, 320, 290, 300] },
+      { weekLabel: "Week 4", data: [230, 280, 250, 290, 330, 310, 340] },
+    ],
+  },
+  {
+    month: "Mar",
+    weeks: [
+      { weekLabel: "Week 1", data: [180, 230, 190, 220, 280, 250, 260] },
+      { weekLabel: "Week 2", data: [220, 260, 280, 300, 340, 310, 330] },
+      { weekLabel: "Week 3", data: [210, 240, 260, 280, 320, 290, 300] },
+      { weekLabel: "Week 4", data: [230, 280, 250, 290, 330, 310, 340] },
+    ],
+  },
+  {
+    month: "Apr",
+    weeks: [
+      { weekLabel: "Week 1", data: [180, 230, 190, 220, 280, 250, 260] },
+      { weekLabel: "Week 2", data: [220, 260, 280, 300, 340, 310, 330] },
+      { weekLabel: "Week 3", data: [210, 240, 260, 280, 320, 290, 300] },
+      { weekLabel: "Week 4", data: [230, 280, 250, 290, 330, 310, 340] },
+    ],
+  },
+  {
+    month: "May",
+    weeks: [
+      { weekLabel: "Week 1", data: [180, 230, 190, 220, 280, 250, 260] },
+      { weekLabel: "Week 2", data: [220, 260, 280, 300, 340, 310, 330] },
+      { weekLabel: "Week 3", data: [210, 240, 260, 280, 320, 290, 300] },
+      { weekLabel: "Week 4", data: [230, 280, 250, 290, 330, 310, 340] },
+    ],
+  },
+  {
+    month: "Jun",
+    weeks: [
+      { weekLabel: "Week 1", data: [180, 230, 190, 220, 280, 250, 260] },
+      { weekLabel: "Week 2", data: [220, 260, 280, 300, 340, 310, 330] },
+      { weekLabel: "Week 3", data: [210, 240, 260, 280, 320, 290, 300] },
+      { weekLabel: "Week 4", data: [230, 280, 250, 290, 330, 310, 340] },
+    ],
+  },
+  {
+    month: "Jul",
+    weeks: [
+      { weekLabel: "Week 1", data: [180, 230, 190, 220, 280, 250, 260] },
+      { weekLabel: "Week 2", data: [220, 260, 280, 300, 340, 310, 330] },
+      { weekLabel: "Week 3", data: [210, 240, 260, 280, 320, 290, 300] },
+      { weekLabel: "Week 4", data: [230, 280, 250, 290, 330, 310, 340] },
+    ],
+  },
+  {
+    month: "Aug",
+    weeks: [
+      { weekLabel: "Week 1", data: [180, 230, 190, 220, 280, 250, 260] },
+      { weekLabel: "Week 2", data: [220, 260, 280, 300, 340, 310, 330] },
+      { weekLabel: "Week 3", data: [210, 240, 260, 280, 320, 290, 300] },
+      { weekLabel: "Week 4", data: [230, 280, 250, 290, 330, 310, 340] },
+    ],
+  },
+  {
+    month: "Sep",
+    weeks: [
+      { weekLabel: "Week 1", data: [180, 230, 190, 220, 280, 250, 260] },
+      { weekLabel: "Week 2", data: [220, 260, 280, 300, 340, 310, 330] },
+      { weekLabel: "Week 3", data: [210, 240, 260, 280, 320, 290, 300] },
+      { weekLabel: "Week 4", data: [230, 280, 250, 290, 330, 310, 340] },
+    ],
+  },
+  {
+    month: "Oct",
+    weeks: [
+      { weekLabel: "Week 1", data: [180, 230, 190, 220, 280, 250, 260] },
+      { weekLabel: "Week 2", data: [220, 260, 280, 300, 340, 310, 330] },
+      { weekLabel: "Week 3", data: [210, 240, 260, 280, 320, 290, 300] },
+      { weekLabel: "Week 4", data: [230, 280, 250, 290, 330, 310, 340] },
+    ],
+  },
+  {
+    month: "Nov",
+    weeks: [
+      { weekLabel: "Week 1", data: [180, 230, 190, 220, 280, 250, 260] },
+      { weekLabel: "Week 2", data: [220, 260, 280, 300, 340, 310, 330] },
+      { weekLabel: "Week 3", data: [210, 240, 260, 280, 320, 290, 300] },
+      { weekLabel: "Week 4", data: [230, 280, 250, 290, 330, 310, 340] },
+    ],
+  },
+  {
+    month: "Dec",
+    weeks: [
+      { weekLabel: "Week 1", data: [180, 230, 190, 220, 280, 250, 260] },
+      { weekLabel: "Week 2", data: [220, 260, 280, 300, 340, 310, 330] },
+      { weekLabel: "Week 3", data: [210, 240, 260, 280, 320, 290, 300] },
+      { weekLabel: "Week 4", data: [230, 280, 250, 290, 330, 310, 340] },
+    ],
+  },
+];
+
