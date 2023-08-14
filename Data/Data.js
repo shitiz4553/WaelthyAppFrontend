@@ -383,159 +383,6 @@ export const spendingsData = [
 ];
 
 
-export const expensesData = [
-  {
-    tabOneHeading:"Housing",
-    tabTwoHeading:"Est. Cost",
-    tabThreeHeading:"Actual Cost",
-    tabFourHeading:"Difference",
-    expenses:[
-      {
-        title:"Mortage/Rent",
-        projectedCost:2550,
-        actualCost:2550
-      },
-      {
-        title:"Supplies",
-        projectedCost:2550,
-        actualCost:2550
-      },
-      {
-        title:"Phone & Internet",
-        projectedCost:0,
-        actualCost:0
-      },
-      {
-        title:"Internet",
-        projectedCost:100,
-        actualCost:100
-      },
-      {
-        title:"Electricity",
-        projectedCost:70,
-        actualCost:90
-      },
-    ]
-  },
-  {
-    tabOneHeading:"Personal Care",
-    tabTwoHeading:"Est. Cost",
-    tabThreeHeading:"Actual Cost",
-    tabFourHeading:"Difference",
-    expenses:[
-      {
-        title:"Beauty",
-        projectedCost:2550,
-        actualCost:2550
-      },
-      {
-        title:"Parlor",
-        projectedCost:2550,
-        actualCost:2550
-      },
-      {
-        title:"Barber",
-        projectedCost:0,
-        actualCost:0
-      },
-      {
-        title:"Shopping",
-        projectedCost:100,
-        actualCost:100
-      },
-    ]
-  },
-  {
-    tabOneHeading:"Savings/Investments",
-    tabTwoHeading:"Est. Cost",
-    tabThreeHeading:"Actual Cost",
-    tabFourHeading:"Difference",
-    expenses:[
-      {
-        title:"Monthly Saving",
-        projectedCost:2550,
-        actualCost:2550
-      },
-      {
-        title:"Supplies",
-        projectedCost:2550,
-        actualCost:2550
-      },
-      {
-        title:"Phone & Internet",
-        projectedCost:0,
-        actualCost:0
-      },
-    ]
-  },
-  {
-    tabOneHeading:"Academy",
-    tabTwoHeading:"Est. Cost",
-    tabThreeHeading:"Actual Cost",
-    tabFourHeading:"Difference",
-    expenses:[
-      {
-        title:"Mortage/Rent",
-        projectedCost:2550,
-        actualCost:2550
-      },
-      {
-        title:"Supplies",
-        projectedCost:2550,
-        actualCost:2550
-      },
-      {
-        title:"Phone & Internet",
-        projectedCost:0,
-        actualCost:0
-      },
-      {
-        title:"Internet",
-        projectedCost:100,
-        actualCost:100
-      },
-      {
-        title:"Electricity",
-        projectedCost:70,
-        actualCost:90
-      },
-    ]
-  },
-  {
-    tabOneHeading:"Accounts",
-    tabTwoHeading:"Est. Cost",
-    tabThreeHeading:"Actual Cost",
-    tabFourHeading:"Difference",
-    expenses:[
-      {
-        title:"Mortage/Rent",
-        projectedCost:2550,
-        actualCost:2550
-      },
-      {
-        title:"Supplies",
-        projectedCost:2550,
-        actualCost:2550
-      },
-      {
-        title:"Phone & Internet",
-        projectedCost:0,
-        actualCost:0
-      },
-      {
-        title:"Internet",
-        projectedCost:100,
-        actualCost:100
-      },
-      {
-        title:"Electricity",
-        projectedCost:70,
-        actualCost:90
-      },
-    ]
-  },
-]
-
 
 
 export const monthData = [
@@ -649,3 +496,77 @@ export const monthData = [
   },
 ];
 
+
+
+export const expensesData = [
+  {
+    tabOneHeading: "Housing",
+    tabTwoHeading: "Est. Cost",
+    tabThreeHeading: "Actual Cost",
+    tabFourHeading: "Difference",
+    months: {
+      Jan: {
+        weeks: {
+          "Week 1": [
+            {
+              title: "Mortage/Rent",
+              projectedCost: 2550,
+              actualCost: 2550,
+            },
+            {
+              title: "Supplies",
+              projectedCost: 2550,
+              actualCost: 2550,
+            },
+            {
+              title: "Phone & Internet",
+              projectedCost: 0,
+              actualCost: 0,
+            },
+          ],
+          "Week 2": [
+            {
+              title: "Internet",
+              projectedCost: 100,
+              actualCost: 100,
+            },
+            {
+              title: "Electricity",
+              projectedCost: 70,
+              actualCost: 90,
+            },
+          ],
+          // ... more weeks
+        },
+      },
+      // ... more months
+    },
+  },
+  {
+    tabOneHeading: "Personal Care",
+    tabTwoHeading: "Est. Cost",
+    tabThreeHeading: "Actual Cost",
+    tabFourHeading: "Difference",
+    months: {
+      Jan: {
+        weeks: {
+          "Week 1": [
+            {
+              title: "Beauty",
+              projectedCost: 2550,
+              actualCost: 2550,
+            },
+            {
+              title: "Parlor",
+              projectedCost: 2550,
+              actualCost: 2550,
+            },
+          ],
+          // ... more weeks
+        },
+      },
+      // ... more months
+    },
+  },
+  // ... other categories
+];

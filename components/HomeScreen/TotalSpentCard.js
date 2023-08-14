@@ -9,7 +9,14 @@ import Theme from "../../src/Theme";
 import Typo from "../Utils/Typo";
 import assets from "../../assets/assets";
 
+function formatNumberWithCommas(number) {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 function TotalSpentCard({ amountSpent, totalAmount, handleAddPress, label }) {
+  // Format the amountSpent with comma separator
+  const formattedAmountSpent = formatNumberWithCommas(amountSpent);
+
   return (
     <View style={styles.container}>
       <View style={styles.alignerMajor}>
@@ -24,7 +31,7 @@ function TotalSpentCard({ amountSpent, totalAmount, handleAddPress, label }) {
       </View>
       <View style={styles.aligner}>
         <Typo xxl white>
-          CHF {amountSpent}
+          CHF {formattedAmountSpent} {/* Display formatted amountSpent */}
         </Typo>
         {totalAmount ? (
           <Typo white light s>

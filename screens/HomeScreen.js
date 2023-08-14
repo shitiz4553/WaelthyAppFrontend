@@ -224,48 +224,49 @@ function HomeScreen({ navigation }) {
           </ScrollView>
 
           <View style={{ width: "100%", paddingHorizontal: 20 }}>
-            {expensesData.map((category, categoryIndex) => {
-              if (selectedTag === category.tabOneHeading) {
-                return (
-                  <View
-                    style={[
-                      styles.heading,
-                      {
-                        backgroundColor: isDarkMode ? "black" : "white",
-                      },
-                    ]}
-                    key={categoryIndex}
-                  >
-                    {/* Render category headings and tabs here */}
+  {expensesData.map((category, categoryIndex) => {
+    if (selectedTag === category.tabOneHeading) {
+      return (
+        <View
+          style={[
+            styles.heading,
+            {
+              backgroundColor: isDarkMode ? "black" : "white",
+            },
+          ]}
+          key={categoryIndex}
+        >
+          <TableHeading category={category} />
+          {category.months[activeMonth]?.weeks[activeWeek]?.map(
+            (weekExpenses, weekIndex) => (
+              <View
+                key={weekIndex}
+                style={[
+                  styles.expenseContainer,
+                  {
+                    backgroundColor:
+                      weekIndex % 2 === 0
+                        ? isDarkMode
+                          ? Theme.containerGreyDarkMode
+                          : "#F9F9F9"
+                        : isDarkMode
+                        ? "black"
+                        : "white",
+                  },
+                ]}
+              >
+                <TableData expense={weekExpenses} />
+              </View>
+            )
+          )}
+        </View>
+      );
+    } else {
+      return null;
+    }
+  })}
+</View>
 
-                    <TableHeading category={category} />
-                    {category.expenses.map((expense, expenseIndex) => (
-                      <View
-                        key={expenseIndex}
-                        style={[
-                          styles.expenseContainer,
-                          {
-                            backgroundColor:
-                              expenseIndex % 2 === 0
-                                ? isDarkMode
-                                  ? Theme.containerGreyDarkMode
-                                  : "#F9F9F9"
-                                : isDarkMode
-                                ? "black"
-                                : "white",
-                          },
-                        ]}
-                      >
-                        <TableData expense={expense} />
-                      </View>
-                    ))}
-                  </View>
-                );
-              } else {
-                return null;
-              }
-            })}
-          </View>
         </ScrollView>
       </View>
     </CustomView>

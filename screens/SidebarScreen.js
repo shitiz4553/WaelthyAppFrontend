@@ -16,23 +16,28 @@ import IconHolder from "../components/Utils/IconHolder";
 const menu =[
     {
         label:"Spending",
-        icon:"check-circle"
+        icon:"check-circle",
+        navTo:"AnalyticsScreen"
     },
     {
         label:"Plans",
-        icon:"server"
+        icon:"server",
+        navTo:"HomeScreen"
     },
     {
         label:"Analytics",
-        icon:"trending-up"
+        icon:"trending-up",
+        navTo:"AnalyticsScreen"
     },
     {
         label:"Academy",
-        icon:"grid"
+        icon:"grid",
+        navTo:"AcademyScreen"
     },
     {
         label:"Settings",
-        icon:"settings"
+        icon:"settings",
+        navTo:"ProfileScreen"
     },
     {
         label:"Account",
@@ -57,15 +62,9 @@ const menu =[
 ]
 
 function SidebarScreen({navigation}){
-
-    const [mode, setMode] = useState(isDarkMode ? "dark" : "light");
     const isDarkMode = useStore((state) => state.isDarkMode)
     const toggleDarkMode = useStore((state) => state.toggleDarkMode)
-    
-    const handleMode = (m) => {
-        setMode(m);
-        toggleDarkMode()
-    };
+
 
 
     return(
@@ -80,11 +79,18 @@ function SidebarScreen({navigation}){
        <View style={styles.body}>
         {menu.map((item,index) => {
         return (
-            <TouchableOpacity style={Theme.align} key={index}>
-            <Feather style={{marginRight:20}} name={item.icon} size={24} color="grey" />
-            <Typo grey l>{item.label}</Typo>
-            </TouchableOpacity>
-            );
+          <TouchableOpacity onPress={item.navTo ? ()=>navigation.navigate(item.navTo): null} style={Theme.align} key={index}>
+            <Feather
+              style={{ marginRight: 20 }}
+              name={item.icon}
+              size={24}
+              color="grey"
+            />
+            <Typo grey l>
+              {item.label}
+            </Typo>
+          </TouchableOpacity>
+        );
             })}
        </View>
            <View style={styles.footer}>

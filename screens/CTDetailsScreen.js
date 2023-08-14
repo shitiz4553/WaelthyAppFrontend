@@ -53,22 +53,6 @@ function CTDetailsScreen({route}){
         sheet.current.open()
     }
 
-    const [activeMonth, setActiveMonth] = useState("Jan");
-    const [activeWeek, setActiveWeek] = useState("Week 1");
-    const [selectedDuration,setSelectedDuration] = useState("");
-  
-    const handleDurationChange = (duration, activeLabel) => {
-        if (duration === "month") {
-            setActiveMonth(activeLabel);
-            console.log(activeLabel)
-            setSelectedDuration(duration)
-        } else if (duration === "week") {
-            setActiveWeek(activeLabel);
-            console.log(activeLabel)
-            setSelectedDuration(duration)
-        }
-    };
-
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -112,11 +96,6 @@ function CTDetailsScreen({route}){
         <CustomHeader label={item.category} />
         <View style={styles.body}>
           <ScrollView contentContainerStyle={{ alignItems: "center" }}>
-            <DurationToggle
-              activeMonth={activeMonth}
-              activeWeek={activeWeek}
-              onDurationChange={handleDurationChange}
-            />
             <Space space={15} />
 
             {/* pass your total spending stats here : */}

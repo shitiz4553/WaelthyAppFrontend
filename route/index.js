@@ -36,6 +36,13 @@ export default function MyStack() {
         <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
         <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
         <Stack.Screen name="CTDetailsScreen" component={CTDetailsScreen} />
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="AnalyticsScreen" component={AnalyticsScreen} />
+        <Stack.Screen name="AcademyScreen" component={AcademyScreen} />
+        <Stack.Screen name="AccountsScreen" component={AccountsScreen} />
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+
+
       </Stack.Navigator>
     </NavigationContainer>
   );
